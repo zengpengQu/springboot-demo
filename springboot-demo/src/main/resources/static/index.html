@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
+    <title>人力资源移动端</title>
+
+    <meta name="description" content="overview &amp; stats"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="./css/assets/bootstrap.css"/>
+    <link rel="stylesheet" href="./js/components/font-awesome/css/font-awesome.css"/>
+
+    <!-- page specific plugin styles -->
+
+    <!-- text fonts -->
+    <link rel="stylesheet" href="./css/assets/ace-fonts.css"/>
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="./css/assets/ace.css" class="ace-main-stylesheet" id="main-ace-style"/>
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="./css/assets/ace-part2.css" class="ace-main-stylesheet"/>
+    <![endif]-->
+    <link rel="stylesheet" href="./css/assets/ace-skins.css"/>
+    <link rel="stylesheet" href="./css/assets/ace-rtl.css"/>
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="./css/assets/ace-ie.css"/>
+    <![endif]-->
+
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="./js/assets/ace-extra.js"></script>
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+    <script src="./js/components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="./js/components/respond/dest/respond.min.js"></script>
+    <![endif]-->
+    <!-- 加入Echart-->
+    <script src="./js/echarts-2.2.7/echarts-all.js"></script>
+
+    <link rel="stylesheet" href="./js/associate/css/LArea.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=C93b5178d7a8ebdb830b9b557abce78b"></script>
+</head>
+
+<body class="no-skin">
+<!-- #section:basics/navbar.layout -->
+<div id="navbar" class="navbar navbar-default          ace-save-state">
+    <div class="navbar-container ace-save-state" id="navbar-container">
+        <div style="margin: 0 auto;width: 310px;">
+            <!-- #section:basics/navbar.layout.brand -->
+            <a href="#" class="navbar-brand">
+                <i class="ace-icon glyphicon glyphicon-chevron-left"
+                   style="font-size: 20px;float: left;color: #fff;margin: 1px 0px 0px -43px;" id="backToWork"></i>
+                <small>
+                    中国气象局人力资源查询系统
+                </small>
+            </a>
+
+        </div>
+    </div>
+</div>
+<input class="pageIndex" style="display: none" value=""/>
+<!-- /section:basics/navbar.layout -->
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+    <div class="main-content">
+    </div>
+
+    <div class="footer" style="position: fixed;bottom:-11px;width: 100%;">
+        <div class="footer-inner">
+            <!-- #section:basics/footer -->
+            <div class="footer-content">
+                <span class="bigger-120">
+                  <span class="blue bolder">中国气象局</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+    </a>
+</div><!-- /.main-container -->
+
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+<script src="./js/components/jquery/dist/jquery.js"></script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="./js/components/jquery.1x/dist/jquery.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='./js/components/_mod/jquery.mobile.custom/jquery.mobile.custom.js'>" + "<" + "/script>");
+</script>
+<script src="./js/components/bootstrap/dist/js/bootstrap.js"></script>
+
+<!-- page specific plugin scripts -->
+
+<!--[if lte IE 8]>
+<script src="./js/components/ExplorerCanvas/excanvas.js"></script>
+<![endif]-->
+<script src="./js/components/_mod/jquery-ui.custom/jquery-ui.custom.js"></script>
+<script src="./js/components/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
+<script src="./js/components/_mod/easypiechart/jquery.easypiechart.js"></script>
+<script src="./js/components/jquery.sparkline/index.js"></script>
+<!--<script src="../components/Flot/jquery.flot.js"></script>-->
+<!--<script src="../components/Flot/jquery.flot.pie.js"></script>
+<script src="../components/Flot/jquery.flot.resize.js"></script>-->
+<script src="js/handlebars/handlebars.runtime-v4.0.12.js"></script>
+<!-- ace scripts -->
+<script src="./js/assets/src/elements.scroller.js"></script>
+<script src="./js/assets/src/elements.colorpicker.js"></script>
+<script src="./js/assets/src/elements.fileinput.js"></script>
+<script src="./js/assets/src/elements.typeahead.js"></script>
+<script src="./js/assets/src/elements.wysiwyg.js"></script>
+<script src="./js/assets/src/elements.spinner.js"></script>
+<script src="./js/assets/src/elements.treeview.js"></script>
+<script src="./js/assets/src/elements.wizard.js"></script>
+<script src="./js/assets/src/elements.aside.js"></script>
+<script src="./js/assets/src/ace.js"></script>
+<script src="./js/assets/src/ace.basics.js"></script>
+<script src="./js/assets/src/ace.scrolltop.js"></script>
+<script src="./js/assets/src/ace.ajax-content.js"></script>
+<script src="./js/assets/src/ace.touch-drag.js"></script>
+<script src="./js/assets/src/ace.sidebar.js"></script>
+<script src="./js/assets/src/ace.sidebar-scroll-1.js"></script>
+<script src="./js/assets/src/ace.submenu-hover.js"></script>
+<script src="./js/assets/src/ace.widget-box.js"></script>
+<script src="./js/assets/src/ace.settings.js"></script>
+<script src="./js/assets/src/ace.settings-rtl.js"></script>
+<script src="./js/assets/src/ace.settings-skin.js"></script>
+<script src="./js/assets/src/ace.widget-on-reload.js"></script>
+<script src="./js/assets/src/ace.searchbox-autocomplete.js"></script>
+<link rel="stylesheet" href="./js/components/jquery.gritter/css/jquery.gritter.css"/>
+<script src="./js/components/jquery.gritter/js/jquery.gritter.js"></script>
+<script src="./js/global.js"></script>
+<script src="./js/handlebars/handlebars.runtime-v4.0.12.js"></script>
+<script src="./js/handlebars/jquery-handlebars-1.1.4.min.js"></script>
+<script src="./js/HBUtil.js"></script>
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    jQuery(function ($) {
+        var statisticData = {};
+        HBUtil.loadContent("./indexPage.hbs", {"statisticData": statisticData}, ".main-content");
+        $('#backToWork').unbind().on('click', function () {
+            window.location.href = "http://47.105.120.207/html/index.html";
+        })
+
+    });
+</script>
+
+<link rel="stylesheet" href="./css/assets/ace.onpage-help.css"/>
+<link rel="stylesheet" href="./js/docs/assets/js/themes/sunburst.css"/>
+<script type="text/javascript"> ace.vars['base'] = '..'; </script>
+<script src="./js/assets/src/elements.onpage-help.js"></script>
+<script src="./js/assets/src/ace.onpage-help.js"></script>
+<script src="./js/docs/assets/js/rainbow.js"></script>
+<script src="./js/docs/assets/js/language/generic.js"></script>
+<script src="./js/docs/assets/js/language/html.js"></script>
+<script src="./js/docs/assets/js/language/css.js"></script>
+<script src="./js/docs/assets/js/language/javascript.js"></script>
+</body>
+</html>

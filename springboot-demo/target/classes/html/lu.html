@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<title>通讯录</title>
+	<script src="../components/jquery/dist/jquery.js"></script>
+
+	<!-- ace styles -->
+	<link rel="stylesheet" href="../assets/css/bootstrap.css" />
+	<link rel="stylesheet" href="../assets/css/ace.css" />
+	<link rel="stylesheet" href="../components/font-awesome/css/font-awesome.css" />
+	<link rel="stylesheet" href="style.css">
+</head>
+<body class="no-skin">
+<!-- #section:basics/navbar.layout -->
+<div id="navbar" class="navbar navbar-default          ace-save-state">
+	<div class="navbar-container ace-save-state" id="navbar-container">
+		<div  style="margin: 0 auto;width: 310px;">
+			<a href="#" class="navbar-brand" >
+				<small>
+					中国气象局人力资源查询系统
+				</small>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="main-container ace-save-state" id="main-container">
+	<script type="text/javascript">
+        try{ace.settings.loadState('main-container')}catch(e){}
+	</script>
+
+	<div class="main-content">
+		<div class="main-content-inner">
+			<!-- #section:basics/content.breadcrumbs -->
+			<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+				<ul class="breadcrumb">
+					<li>
+						<i class="ace-icon glyphicon glyphicon-map-marker" style="color: red;"></i>
+						您目前所在的地区：<span id="baidu_geo">北京市海淀区</span>
+					</li>
+				</ul><!-- /.breadcrumb -->
+
+				<!-- #section:basics/content.searchbox -->
+				<div class="nav-search" id="nav-search">
+					<button class="btn btn-success btn-sm" style="float: right;" id="back-index-btn">
+						<i class="ace-icon fa fa-reply icon-only"></i>
+					</button>
+				</div><!-- /.nav-search -->
+
+				<!-- /section:basics/content.searchbox -->
+			</div>
+			<div class="page-content">
+				<div class="input-group">
+					<input type="text" class="form-control search-query" placeholder="人员查询...">
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-info btn-sm">
+							<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+							查询
+						</button>
+					</span>
+				</div>
+			<div id="listbox">
+			<div id="letter" ></div>
+			<div id="ulist" class="sort_box">
+
+			</div>
+			<div class="initials">
+				<ul>
+					<li><img src="../assets/avatars/profile-pic.jpg"></li>
+				</ul>
+			</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<script>
+		$(function () {
+		    $("#back-index-btn").click(function () {
+				location.href="./index.html";
+            })
+           // getLocation();
+            function getLocation(){
+                if (navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(showPosition,showError);
+                }else{
+                    alert("浏览器不支持地理定位。");
+                }
+            }
+            function showPosition(position){
+                var latlon = position.coords.latitude+','+position.coords.longitude;
+                //baidu
+                var url = "http://api.map.baidu.com/geocoder/v2/?ak=C93b5178d7a8ebdb830b9b557abce78b&callback=renderReverse&location="+latlon+"&output=json&pois=0";
+                $.ajax({
+                    type: "GET",
+                    dataType: "jsonp",
+                    url: url,
+                    beforeSend: function(){
+                        $("#baidu_geo").html('正在定位...');
+                    },
+                    success: function (json) {
+                        if(json.status==0){
+                            $("#baidu_geo").html(json.result.formatted_address);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        $("#baidu_geo").html(latlon+"地址位置获取失败");
+                    }
+                });
+            }
+            function showError(error){
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("定位失败,用户拒绝请求地理定位");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("定位失败,位置信息是不可用");
+                        break;
+                    case error.TIMEOUT:
+                        alert("定位失败,请求获取用户位置超时");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        alert("定位失败,定位系统失效");
+                        break;
+                }
+            }
+			$.ajax({
+				type: "GET",
+				url: "lu.json",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				async:false,
+				success: function (res) {
+					for(var i=0;i<res.length;i++){
+							$("#ulist").append('<div class="sort_list">'
+									+'<div class="num_name" style="margin-left: 0px">'+res[i].name
+                                    +'<span class="num_name" style="color: #7a7a7a;margin-left:30px">'+res[i].sex+'</span>'
+                                    +'<span class="num_name" style="color: #7a7a7a;margin-left:30px">'+res[i].post+'</span>'
+                                    +'<span class="num_name" style="color: #7a7a7a;margin-left:30px">'+res[i].mm+'</span>'
+                                    +'<span class="num_name" style="color: #7a7a7a;margin-left:30px">'+res[i].dept+'</span>'
+                                    +'</div>'
+									+'</div>')
+						}
+
+				}
+			});
+
+
+			$(".sort_list").off().on("click",function () {
+                location.href='./profile.html';
+            });
+		})
+	</script>
+	<script type="text/javascript" src="jquery.charfirst.pinyin.js"></script>
+	<script type="text/javascript" src="sort.js"></script>
+
+</body>
+</html>

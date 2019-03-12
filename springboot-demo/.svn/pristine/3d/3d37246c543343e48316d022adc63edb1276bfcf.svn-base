@@ -1,0 +1,40 @@
+
+{{#each statisticData.data}}
+    <div
+        {{#compare type_code 'ZZ'}} class="infobox infobox-green"{{/compare}}
+        {{#compare type_code 'LT'}} class="infobox infobox-blue" {{/compare}}
+
+        {{#compare type_code 'DF'}}class="infobox infobox-red"{{/compare}}
+        {{#compare type_code 'LW'}}class="infobox infobox-pink"{{/compare}}
+        {{#compare type_code 'BW'}}class="infobox infobox-blue"{{/compare}}
+
+    >
+        <div class="infobox-icon">
+            <i
+                  {{#compare type_code 'ZZ'}} class="ace-icon fa fa-user"{{/compare}}
+                  {{#compare type_code 'LT'}} class="ace-icon fa fa-coffee"{{/compare}}
+
+                  {{#compare type_code 'DF'}} class="ace-icon fa fa-home"{{/compare}}
+                  {{#compare type_code 'LW'}} class="ace-icon fa fa-wrench"{{/compare}}
+                  {{#compare type_code 'BW'}} class="ace-icon fa fa-bookmark"{{/compare}}
+           ></i>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">{{#if count}}{{count}}{{else}}0{{/if}} 人</span>
+            <div class="infobox-content" style="font-weight: bold">{{type_name}}</div>
+        </div>
+
+    </div>
+
+{{/each}}
+<!--{{#compare type_code 'FP'}}class="infobox infobox-grey infobox-small infobox-dark"{{/compare}}-->
+<!--{{#compare type_code 'JY'}}class="infobox infobox-pink infobox-small infobox-dark"{{/compare}}-->
+<!--{{#compare type_code 'LJ'}}class="infobox infobox-green infobox-small infobox-dark"{{/compare}}-->
+<!-- {{#compare type_code 'DZ'}}class="infobox infobox-pink"{{/compare}}-->
+<script>
+    jQuery(function ($) {
+        $(".pageIndex").val("");
+        $(".pageIndex").val("personTypeView");
+    });
+</script>

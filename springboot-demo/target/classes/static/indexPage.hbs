@@ -1,0 +1,416 @@
+
+<div class="main-content-inner">
+        <!-- #section:basics/content.breadcrumbs -->
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon glyphicon glyphicon-map-marker" style="color: red;"></i>
+                    您目前所在的地区：<span id="baidu_geo"> </span>
+                </li>
+            </ul><!-- /.breadcrumb -->
+
+            <!-- #section:basics/content.searchbox -->
+            <!--<div class="nav-search" id="nav-search">-->
+                <!--<form class="form-search">-->
+								<!--<span class="input-icon">-->
+									<!--<input type="text" placeholder="人员姓名..." class="nav-search-input"-->
+                                           <!--id="nav-search-input" autocomplete="off"/>-->
+									<!--<i class="ace-icon fa fa-search nav-search-icon"></i>-->
+								<!--</span>-->
+                <!--</form>-->
+            <!--</div>&lt;!&ndash; /.nav-search &ndash;&gt;-->
+
+            <!-- /section:basics/content.searchbox -->
+        </div>
+
+        <!-- /section:basics/content.breadcrumbs -->
+        <div class="page-content">
+
+            {{#if statisticData.orgName}}
+                {{else}}
+            <div class="alert alert-block alert-success">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <i class="ace-icon fa fa-check green"></i>
+
+                欢迎访问
+                <strong class="green">
+                    气象人力资源查询系统
+                    <small>(v1.0)</small>
+                </strong>,
+                目前您可以查询气象机构的人员基本情况、在职人员统计、花名册功能
+            </div>
+                {{/if}}
+            <div class="page-header" style="font-weight: bold;margin-top: -10px;">
+
+                <div>
+                    <div class="content-block">
+                        <i class="ace-icon fa fa-hand-o-right blue"></i>
+                        <span id="pleaseSelect">请选择： </span>
+                        <input id="associateDemo" style="min-width: 200px;" type="text" readonly="" placeholder="机构部门选择" {{#if statisticData.orgName}}value="{{statisticData.orgName}}"{{else}}value="中国气象局"{{/if}}/>
+                        <input id="associateValue" type="hidden" {{#if statisticData.orgCode}}value="{{statisticData.orgCode}}"{{else}}value="R01"{{/if}}/>
+                    </div>
+                </div>
+
+
+             <div style="margin-top: 10px;">
+                        <i class="ace-icon fa fa-filter blue"></i>
+                        <span>您当前的查询条件： </span>
+                        <span id="orgTitle" >{{#if statisticData.orgName}}{{statisticData.orgName}}{{else}}中国气象局,全部人员{{/if}}</span>
+                        <br/><span id="typeTitle" style="display: none;color: orange;"></span>
+             </div>
+
+            </div>
+
+            <div class="main-ajax-content row">
+                <div class="col-xs-12">
+
+                    <!-- 功能按钮-->
+                    <div class="row">
+
+                        <div style="margin: 0 auto;width:350px;">
+                            <button id="btn_1" class="btn btn-yellow" style="font-weight: bold;">
+                                <i class="ace-icon fa fa-bar-chart-o align-top bigger-125"></i>
+                                人员统计
+                            </button>
+
+                            <button id="rosterButton" class="btn btn-yellow"
+                                    style="margin-left: 50px;font-weight: bold;">
+                                <i class="ace-icon fa fa-credit-card align-top bigger-125"></i>
+                                花 名 册
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="space-6"></div>
+
+                        <div class="col-sm-12 infobox-container">
+                            <!-- #section:pages/dashboard.infobox -->
+                        <!--
+                            <div class="infobox infobox-green">
+                                <div class="infobox-icon">
+                                    <i class="ace-icon fa fa-bar-chart-o"></i>
+                                </div>
+
+                                <div class="infobox-data">
+                                    <span class="infobox-data-number">53153</span>
+                                    <div class="infobox-content">在职人数</div>
+                                </div>
+
+                            </div>
+
+                            <div class="infobox infobox-blue">
+                                <div class="infobox-icon">
+                                    <i class="ace-icon fa fa-bar-chart-o"></i>
+                                </div>
+
+                                <div class="infobox-data">
+                                    <span class="infobox-data-number">14691</span>
+                                    <div class="infobox-content">参公人员</div>
+                                </div>
+
+                                <div class="badge badge-success">
+                                    实有人员
+                                    &lt;!&ndash;<i class="ace-icon fa fa-arrow-up"></i>&ndash;&gt;
+                                </div>
+                            </div>
+
+                            <div class="infobox infobox-pink">
+                                <div class="infobox-icon">
+                                    <i class="ace-icon fa fa-bar-chart-o"></i>
+                                </div>
+
+                                <div class="infobox-data">
+                                    <span class="infobox-data-number">33400</span>
+                                    <div class="infobox-content">事业单位人员</div>
+                                </div>
+                                &lt;!&ndash;<div class="stat stat-important">4%</div>&ndash;&gt;
+                            </div>
+
+                            <div class="infobox infobox-red">
+                                <div class="infobox-icon">
+                                    <i class="ace-icon fa fa-bar-chart-o"></i>
+                                </div>
+
+                                <div class="infobox-data">
+                                    <span class="infobox-data-number">36395</span>
+                                    <div class="infobox-content">离退休人员</div>
+                                </div>
+                            </div>
+
+
+                            &lt;!&ndash; /section:pages/dashboard.infobox &ndash;&gt;
+                            <div class="space-6"></div>
+
+                            &lt;!&ndash; #section:pages/dashboard.infobox.dark &ndash;&gt;
+                            <div class="infobox infobox-green infobox-small infobox-dark">
+                                <div class="infobox-icon">
+                                    <i class="ace-icon fa fa-bar-chart-o"></i>
+                                </div>
+                                <div class="infobox-data">
+                                    <div class="infobox-content">6,251</div>
+                                    <div class="infobox-content">编外人数</div>
+                                </div>
+                            </div>
+
+                            <div class="infobox infobox-blue infobox-small infobox-dark">
+                                &lt;!&ndash; #section:pages/dashboard.infobox.sparkline &ndash;&gt;
+                                <div class="infobox-icon">
+                                    <i class="ace-icon fa fa-bar-chart-o"></i>
+                                </div>
+                                &lt;!&ndash; /section:pages/dashboard.infobox.sparkline &ndash;&gt;
+                                <div class="infobox-data">
+                                    <div class="infobox-content">36395</div>
+                                    <div class="infobox-content">劳务派遣</div>
+                                </div>
+                            </div>
+
+                            <div class="infobox infobox-grey infobox-small infobox-dark">
+                                <div class="infobox-icon">
+                                    <i class="ace-icon fa fa-bar-chart-o"></i>
+                                </div>
+
+                                <div class="infobox-data">
+                                    <div class="infobox-content">36395</div>
+                                    <div class="infobox-content">地方编制</div>
+                                </div>
+                            </div>-->
+
+                            <!-- /section:pages/dashboard.infobox.dark -->
+                        </div>
+
+                        <div class="vspace-12-sm"></div>
+
+                    </div><!-- /.row -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->
+    </div>
+
+
+
+<script type="text/javascript">
+    function selectPersonTypeData(orgCode){
+        HBUtil.loadContent("./personTypeView.hbs",{"statisticData":"/statistic/index-person-data.action?orgCode="+orgCode},".infobox-container");
+    }
+    jQuery(function ($) {
+        //显示事业单位人员分类
+        $(".pageIndex").val("");
+        $(".pageIndex").val("indexPage");
+        var associate = $("#associateValue").val();
+        selectPersonTypeData(associate);
+        getLocation();
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("浏览器不支持地理定位。");
+            }
+        }
+
+        function showPosition(position) {
+            var latlon = position.coords.latitude + ',' + position.coords.longitude;
+            //baidu
+            var url = "https://api.map.baidu.com/geocoder/v2/?ak=C93b5178d7a8ebdb830b9b557abce78b&callback=renderReverse&location=" + latlon + "&output=json&pois=0";
+            $.ajax({
+                type: "GET",
+                dataType: "jsonp",
+                url: url,
+                beforeSend: function () {
+                    $("#baidu_geo").html('正在定位...');
+                },
+                success: function (json) {
+                    if (json.status == 0) {
+                        // $("#baidu_geo").html(json.result.formatted_address);
+                        $("#baidu_geo").html(json.result.addressComponent.province+" "+json.result.addressComponent.district);
+
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // $("#baidu_geo").html("地址位置获取失败");
+                }
+            });
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    // alert("定位失败,用户拒绝请求地理定位");
+                    // $("#baidu_geo").html("地址位置获取失败");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    // alert("定位失败,位置信息是不可用");
+                    // $("#baidu_geo").html("地址位置获取失败");
+                    break;
+                case error.TIMEOUT:
+                    // alert("定位失败,请求获取用户位置超时");
+                    // $("#baidu_geo").html("地址位置获取失败");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    // alert("定位失败,定位系统失效");
+                    // $("#baidu_geo").html("地址位置获取失败");
+                    break;
+            }
+        }
+
+        //人员统计按钮
+        $("#btn_1").click(function () {
+            HBUtil.loadContent("./statisticChart.hbs",{"statistic-index":"ssex"},".main-ajax-content");
+        });
+
+        // 花名册
+        $("#rosterButton").click(function () {
+            var orgId = $('#associateValue').attr("value");
+            $('.main-ajax-content').empty();
+            HBUtil.loadContent("./rosterPage.hbs",{'orgData':orgId},".main-ajax-content");
+        });
+
+
+        $('.sparkline').each(function () {
+            var $box = $(this).closest('.infobox');
+            var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+            $(this).sparkline('html',
+                    {
+                        tagValuesAttribute: 'data-values',
+                        type: 'bar',
+                        barColor: barColor,
+                        chartRangeMin: $(this).data('min') || 0
+                    });
+        });
+
+
+        //flot chart resize plugin, somehow manipulates default browser resize event to optimize it!
+        //but sometimes it brings up errors with normal resize event handlers
+        /*$.resize.throttleWindow = false;*/
+
+        var placeholder = $('#piechart-placeholder').css({'width': '90%', 'min-height': '150px'});
+        var data = [
+            {label: "social networks", data: 38.7, color: "#68BC31"},
+            {label: "search engines", data: 24.5, color: "#2091CF"},
+            {label: "ad campaigns", data: 8.2, color: "#AF4E96"},
+            {label: "direct traffic", data: 18.6, color: "#DA5430"},
+            {label: "other", data: 10, color: "#FEE074"}
+        ]
+
+
+        var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+        var previousPoint = null;
+
+        placeholder.on('plothover', function (event, pos, item) {
+            if (item) {
+                if (previousPoint != item.seriesIndex) {
+                    previousPoint = item.seriesIndex;
+                    var tip = item.series['label'] + " : " + item.series['percent'] + '%';
+                    $tooltip.show().children(0).text(tip);
+                }
+                $tooltip.css({top: pos.pageY + 10, left: pos.pageX + 10});
+            } else {
+                $tooltip.hide();
+                previousPoint = null;
+            }
+
+        });
+
+        /////////////////////////////////////
+        $(document).one('ajaxloadstart.page', function (e) {
+            $tooltip.remove();
+        });
+
+
+        var d1 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.5) {
+            d1.push([i, Math.sin(i)]);
+        }
+
+        var d2 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.5) {
+            d2.push([i, Math.cos(i)]);
+        }
+
+        var d3 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.2) {
+            d3.push([i, Math.tan(i)]);
+        }
+
+
+
+        $('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+
+        function tooltip_placement(context, source) {
+            var $source = $(source);
+            var $parent = $source.closest('.tab-content')
+            var off1 = $parent.offset();
+            var w1 = $parent.width();
+
+            var off2 = $source.offset();
+            //var w2 = $source.width();
+
+            if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+            return 'left';
+        }
+
+
+        $('.dialogs,.comments').ace_scroll({
+            size: 300
+        });
+
+        var agent = navigator.userAgent.toLowerCase();
+        if (ace.vars['touch'] && ace.vars['android']) {
+            $('#tasks').on('touchstart', function (e) {
+                var li = $(e.target).closest('#tasks li');
+                if (li.length == 0) return;
+                var label = li.find('label.inline').get(0);
+                if (label == e.target || $.contains(label, e.target)) e.stopImmediatePropagation();
+            });
+        }
+
+        $('#tasks').sortable({
+                    opacity: 0.8,
+                    revert: true,
+                    forceHelperSize: true,
+                    placeholder: 'draggable-placeholder',
+                    forcePlaceholderSize: true,
+                    tolerance: 'pointer',
+                    stop: function (event, ui) {
+                        //just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
+                        $(ui.item).css('z-index', 'auto');
+                    }
+                }
+        );
+        $('#tasks').disableSelection();
+        $('#tasks input:checkbox').removeAttr('checked').on('click', function () {
+            if (this.checked) $(this).closest('li').addClass('selected');
+            else $(this).closest('li').removeClass('selected');
+        });
+
+
+        //show the dropdowns on top or bottom depending on window height and menu position
+        $('#task-tab .dropdown-hover').on('mouseenter', function (e) {
+            var offset = $(this).offset();
+
+            var $w = $(window)
+            if (offset.top > $w.scrollTop() + $w.innerHeight() - 100)
+                $(this).addClass('dropup');
+            else $(this).removeClass('dropup');
+        });
+    })
+</script>
+<script src="./js/associate/js/LArea.js"></script>
+<script type="text/javascript">
+    var area1 = new LArea();
+    area1.init({
+        'trigger': '#associateDemo', //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
+        'valueTo': '#associateValue', //选择完毕后id属性输出到该位置
+        'keys': {
+            id: 'id',
+            name: 'name'
+        }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
+        'type': 1, //数据源类型
+        'data':'/statistic/tree-org-dept.action'//数据源
+    });
+
+</script>

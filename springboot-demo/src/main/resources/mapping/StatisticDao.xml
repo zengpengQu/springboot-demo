@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cmahrmobile.hr.mapper.StatisticDao">
+    <!--加载概览信息-->
+    <select id="indexPersonTypeData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT
+            aa.count as count,
+            tt.type_name as type_name,
+            tt.type_code as type_code,
+            tt.id as id
+        FROM
+            tb_dic_person_type tt
+        LEFT JOIN (
+            SELECT
+            <choose>
+                <when test="map.deptType.equals('org')">
+                    a.UNIT_NAME,
+                </when>
+                <otherwise>
+                    a.DEPARTMENT,
+                </otherwise>
+            </choose>
+                count(1) AS count,
+                a.person_type
+            FROM
+                tb_set_person_info a
+            INNER JOIN tb_dic_person_type t ON a.person_type = t.type_code
+            WHERE
+                a.del_flag = '0'
+            <choose>
+                <when test="map.deptType.equals('org')">
+                    AND a.unit_name LIKE CONCAT(#{map.deptCode,jdbcType=VARCHAR},'%')
+                </when>
+                <otherwise>
+                    and a.department = #{map.deptCode,jdbcType=VARCHAR}
+                </otherwise>
+            </choose>
+            GROUP BY
+                a.person_type
+        ) aa ON tt.type_code = aa.person_type
+        ORDER BY tt.id
+    </select>
+
+    <sql id="sexCase">
+		CASE WHEN a.sex = '1' THEN '男' WHEN a.sex = '2' THEN '女' END
+	</sql>
+    <sql id="nationCase">
+        CASE
+		  WHEN a.nation = '01' THEN
+			'汉族'
+		  ELSE
+			'少数民族'
+		  END AS name,
+		CASE
+	      WHEN a.nation = '01' THEN
+		    '1'
+	    ELSE
+		    '2'
+	    END AS seq
+    </sql>
+    <sql id="ageCase">
+        CASE
+        WHEN a.age <![CDATA[ <= ]]> 35 THEN
+        '35以下'
+        WHEN a.age <![CDATA[ > ]]> 35
+        AND a.age <![CDATA[ <= ]]> 40 THEN
+        '36-40'
+        WHEN a.age <![CDATA[ > ]]> 40
+        AND a.age <![CDATA[ <= ]]> 45 THEN
+        '41-45'
+        WHEN a.age <![CDATA[ >= ]]> 46
+        AND a.age <![CDATA[ <= ]]> 50 THEN
+        '46-50'
+        WHEN a.age <![CDATA[ > ]]> 50
+        AND a.age <![CDATA[ <= ]]> 55 THEN
+        '51-55'
+        ELSE
+        '56及以上'
+        END AS name,
+        CASE
+        WHEN a.age <![CDATA[ <= ]]> 35 THEN
+        '1'
+        WHEN a.age <![CDATA[ > ]]> 35
+        AND a.age <![CDATA[ <= ]]> 40 THEN
+        '2'
+        WHEN a.age <![CDATA[ > ]]> 40
+        AND a.age <![CDATA[ <= ]]> 45 THEN
+        '3'
+        WHEN a.age <![CDATA[ >= ]]> 46
+        AND a.age <![CDATA[ <= ]]> 50 THEN
+        '4'
+        WHEN a.age <![CDATA[ > ]]> 50
+        AND a.age <![CDATA[ <= ]]> 55 THEN
+        '5'
+        ELSE
+        '6'
+        END AS seq
+    </sql>
+    <sql id="eduCase">
+        CASE
+        WHEN SUBSTR(c.dic_code, 1, 1) <![CDATA[ <= ]]> 4 THEN
+        '高中及以下'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 5
+        OR SUBSTR(c.dic_code, 1, 1) = 6 THEN
+        '中专'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 7 THEN
+        '专科'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 8 THEN
+        '本科'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 9 THEN
+        '研究生'
+        WHEN c.dic_code IS NULL
+        OR c.dic_code = '' THEN
+        '无学历'
+        END AS name,
+        CASE
+        WHEN SUBSTR(c.dic_code, 1, 1) <![CDATA[ <= ]]> 4 THEN
+        '5'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 5
+        OR SUBSTR(c.dic_code, 1, 1) = 6 THEN
+        '4'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 7 THEN
+        '3'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 8 THEN
+        '2'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 9 THEN
+        '1'
+        WHEN c.dic_code IS NULL
+        OR c.dic_code = '' THEN
+        '6'
+        END AS seq
+    </sql>
+    <sql id="degreeCase">
+        CASE
+		WHEN SUBSTR(c.dic_code, 1, 1) = 2 THEN
+			'博士'
+		WHEN SUBSTR(c.dic_code, 1, 1) = 3 THEN
+			'硕士'
+		WHEN SUBSTR(c.dic_code, 1, 1) = 4 THEN
+			'学士'
+		ELSE
+			'无学位'
+		END AS name,
+		CASE
+	    WHEN SUBSTR(c.dic_code, 1, 1) = 2 THEN
+		'1'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 3 THEN
+            '2'
+        WHEN SUBSTR(c.dic_code, 1, 1) = 4 THEN
+            '3'
+        ELSE
+            '4'
+        END AS seq
+    </sql>
+    <sql id="majorCase">
+        CASE
+            WHEN SUBSTR(c.dic_code, 1, 4) = '0712' THEN
+                '信息技术类'
+            WHEN SUBSTR(c.dic_code, 1, 4) = '0707' THEN
+                '地球科学及其他专业'
+            WHEN SUBSTR(c.dic_code, 1, 4) = '0709' THEN
+                '大气科学类'
+            ELSE
+                '其他'
+            END AS name,
+        CASE
+            WHEN SUBSTR(c.dic_code, 1, 4) = '0712' THEN
+                '3'
+            WHEN SUBSTR(c.dic_code, 1, 4) = '0707' THEN
+                '2'
+            WHEN SUBSTR(c.dic_code, 1, 4) = '0709' THEN
+                '1'
+            ELSE
+                '4'
+        END AS seq
+    </sql>
+    <sql id="techCase">
+        CASE
+		WHEN SUBSTR(
+			c.dic_code,
+			LENGTH(c.dic_code),
+			1
+		) = '1' THEN
+			'正研'
+		WHEN SUBSTR(
+			c.dic_code,
+			LENGTH(c.dic_code),
+			1
+		) = '2' THEN
+			'副研'
+		WHEN SUBSTR(
+			c.dic_code,
+			LENGTH(c.dic_code),
+			1
+		) = '3' THEN
+			'中级'
+		WHEN SUBSTR(
+			c.dic_code,
+			LENGTH(c.dic_code),
+			1
+		) = '5'
+		OR SUBSTR(
+			c.dic_code,
+			LENGTH(c.dic_code),
+			1
+		) = '4' THEN
+			'初级'
+		WHEN SUBSTR(
+			c.dic_code,
+			LENGTH(c.dic_code),
+			1
+		) = '9' THEN
+			'见习'
+		ELSE
+			'无资格'
+		END AS name,
+		CASE
+	WHEN SUBSTR(
+		c.dic_code,
+		LENGTH(c.dic_code),
+		1
+	) = '1' THEN
+		'1'
+	WHEN SUBSTR(
+		c.dic_code,
+		LENGTH(c.dic_code),
+		1
+	) = '2' THEN
+		'2'
+	WHEN SUBSTR(
+		c.dic_code,
+		LENGTH(c.dic_code),
+		1
+	) = '3'
+	OR SUBSTR(
+		c.dic_code,
+		LENGTH(c.dic_code),
+		1
+	) = '4' THEN
+		'3'
+	WHEN SUBSTR(
+		c.dic_code,
+		LENGTH(c.dic_code),
+		1
+	) = '5' THEN
+		'4'
+	WHEN SUBSTR(
+		c.dic_code,
+		LENGTH(c.dic_code),
+		1
+	) = '9' THEN
+		'5'
+	ELSE
+		'6'
+	END AS seq
+    </sql>
+    <sql id="selectOption">
+      count(1) AS value,t.name,t.unit,t.seq
+    </sql>
+    <sql id="selectOrgDeptOption">
+        <choose>
+            <when test="map.deptType.equals('org')">
+                SUBSTR(a.unit_name,1, #{map.len})
+            </when>
+            <otherwise>
+                a.department
+            </otherwise>
+        </choose>
+    </sql>
+    <!-- 人员子查询 -->
+    <sql id="subPersonSelect">
+        SELECT
+        *
+        FROM
+          tb_set_person_info a
+        WHERE
+        <include refid="statisticWhere"/>
+    </sql>
+    <sql id="maxEntryEdu">
+        SELECT
+          b.person_id,
+          MAX(b.entry_num) AS num,
+          b.del_flag
+        FROM
+          tb_set_edu_deg b,
+            (
+            SELECT
+            a.id,
+            a.name
+            FROM
+            tb_set_person_info a
+            WHERE
+        <include refid="statisticWhere"/>
+            ) t
+        WHERE
+          t.id = b.person_id
+        GROUP BY
+          b.person_id
+    </sql>
+    <sql id="maxEntryTech">
+        SELECT
+				b.person_id,
+				MAX(b.entry_num) AS num,
+				b.del_flag
+			FROM
+				tb_set_prof_tech_post b,
+				(
+					SELECT
+						a.id,
+						a.name
+					FROM
+						tb_set_person_info a
+					WHERE
+                <include refid="statisticWhere"/>
+				) t
+			WHERE
+				t.id = b.person_id
+			GROUP BY
+				b.person_id
+    </sql>
+    <sql id="statisticWhere">
+        a.person_type = #{map.personType,jdbcType=VARCHAR}
+        AND a.del_flag = '0'
+        <choose>
+            <when test="map.deptType.equals('org')">
+                AND SUBSTR(a.unit_name, 1, #{map.len}) = #{map.deptCode,jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+                and a.department=#{map.deptCode,jdbcType=VARCHAR}
+            </otherwise>
+        </choose>
+    </sql>
+    <!--性别统计-->
+    <select id="findSexJsonData"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT
+            count(1) AS value,
+        <include refid="sexCase"/> AS name,
+        <include refid="selectOrgDeptOption"/> as unit
+        FROM
+            tb_set_person_info a
+        WHERE
+        <include refid="statisticWhere"/>
+        GROUP BY
+	    a.sex
+    </select>
+
+    <!--民族统计-->
+    <select id="findNationJsonData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+      SELECT
+        <include refid="selectOption"/>
+      FROM
+	    (
+	    SELECT
+        <include refid="nationCase"/>,
+        <include refid="selectOrgDeptOption"/> as unit
+        FROM
+	      tb_set_person_info a
+        WHERE
+        <include refid="statisticWhere"/>
+	    ) t
+        GROUP BY
+	      t.name
+        ORDER BY
+	      t.seq
+    </select>
+
+    <select id="findAgeJsonData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT
+        <include refid="selectOption"/>
+        FROM
+        (
+        SELECT
+        <include refid="ageCase"/>,
+        <include refid="selectOrgDeptOption"/> as unit
+        FROM
+        tb_set_person_info a
+        WHERE
+        <include refid="statisticWhere"/>
+        ) t
+        GROUP BY
+        t.name
+        ORDER BY
+        t.seq
+    </select>
+    <!--学位统计-->
+    <select id="findEduJsonData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT
+        <include refid="selectOption"/>
+        FROM
+        (
+        SELECT
+        <include refid="eduCase"/>,
+        <include refid="selectOrgDeptOption"/> as unit
+        FROM
+        (
+        <include refid="subPersonSelect"/>
+        ) a
+        LEFT JOIN (
+        SELECT DISTINCT
+        bi.person_id,
+        bi.education
+        FROM
+        tb_set_edu_deg bi
+        INNER JOIN (
+
+        <include refid="maxEntryEdu"/>
+
+        ) bt ON bt.num = bi.entry_num
+        AND bi.person_id = bt.person_id
+        ) b ON a.id = b.person_id
+        LEFT JOIN tb_dic_code_def c ON b.education = c.dic_code
+        AND c.dic_id = 'WL'
+        ) t
+        GROUP BY
+        t.NAME
+        ORDER BY
+        t.seq
+    </select>
+    <select id="findDegreeJsonData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+      SELECT
+        <include refid="selectOption"/>
+      FROM
+	  (
+		SELECT
+        <include refid="degreeCase"/>,
+        <include refid="selectOrgDeptOption"/> as unit
+        FROM
+	  (
+        <include refid="subPersonSelect"/>
+	  ) a
+        LEFT JOIN (
+            SELECT DISTINCT
+                bi.person_id,
+                bi.degree
+            FROM
+                tb_set_edu_deg bi
+            INNER JOIN
+            (
+            <include refid="maxEntryEdu"/>
+            ) bt ON bt.num = bi.entry_num
+            AND bi.person_id = bt.person_id
+        ) b ON a.id = b.person_id
+        AND a.del_flag = '0'
+        LEFT JOIN tb_dic_code_def c ON b.degree = c.dic_code
+        AND c.dic_id = 'AN'
+            ) t
+        GROUP BY
+            t.name
+        ORDER BY
+            t.seq
+    </select>
+
+    <select id="findMajorDJsonData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT
+              <include refid="selectOption"/>
+        FROM
+            (
+        SELECT
+            <include refid="majorCase"/>,
+            <include refid="selectOrgDeptOption"/> as unit
+        FROM
+            (
+            <include refid="subPersonSelect"/>
+            ) a
+        LEFT JOIN (
+            SELECT DISTINCT
+                bi.person_id,
+                bi.major
+            FROM
+                tb_set_edu_deg bi
+            INNER JOIN (
+        <include refid="maxEntryEdu"/>
+            ) bt ON bt.num = bi.entry_num
+            AND bi.person_id = bt.person_id
+        ) b ON a.id = b.person_id
+        LEFT JOIN tb_dic_code_def c ON b.major = c.dic_code
+        AND c.dic_id = 'AI'
+            ) t
+        GROUP BY
+            t.name
+        ORDER BY
+            t.seq
+    </select>
+
+    <select id="findTechJsonData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+      SELECT
+        <include refid="selectOption"/>
+      FROM
+	  (
+		SELECT
+        <include refid="techCase"/>,
+        <include refid="selectOrgDeptOption"/> as unit
+	    FROM
+		(
+        <include refid="subPersonSelect"/>
+		) a
+	LEFT JOIN (
+		SELECT DISTINCT
+			bi.person_id,
+			bi.tec_qua
+		FROM
+			tb_set_prof_tech_post bi
+		INNER JOIN
+		    (
+            <include refid="maxEntryTech"/>
+            ) bt ON bt.num = bi.entry_num
+            AND bi.person_id = bt.person_id
+            ) b ON a.id = b.person_id
+            LEFT JOIN tb_dic_code_def c ON b.tec_qua = c.dic_code
+            AND c.dic_id = 'AJ'
+        ) t
+      GROUP BY
+	    t.name,
+	    t.unit
+      ORDER BY
+	    t.seq
+    </select>
+    <select id="getPersonListByStatisticData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT DISTINCT
+        *
+        FROM
+        (
+        SELECT
+        t.id,
+        t.person_type,
+        t.seq,
+        t.age age,
+        t.name name,
+        dept.dept_name dept,
+        (
+        <include refid="sexCase"/>
+        ) AS sex,
+        postFin.post_name postName,
+        polFin.pol_sta_name mm,
+        <include refid="selectOrgDeptOption"/> AS unit_name,
+        (
+        CASE
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '1' THEN
+        '正研'
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '2' THEN
+        '副研'
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '3' THEN
+        '中级'
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '5'
+        OR SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '4' THEN
+        '初级'
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '9' THEN
+        '见习'
+        ELSE
+        '无资格'
+        END
+        ) AS post,
+        (
+        CASE
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '1' THEN
+        '正研'
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '2' THEN
+        '副研'
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '3' THEN
+        '中级'
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '5'
+        OR SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '4' THEN
+        '初级'
+        WHEN SUBSTR(
+        b.tec_qua,
+        LENGTH(b.tec_qua),
+        1
+        ) = '9' THEN
+        '见习'
+        ELSE
+        '无资格'
+        END
+        ) AS stech,
+        (
+        <include refid="sexCase"/>
+        ) AS ssex,
+        CASE
+        WHEN SUBSTR(eduFin.education, 1, 1) lte 4 THEN
+        '高中及以下'
+        WHEN SUBSTR(eduFin.education, 1, 1) = 5
+        OR SUBSTR(eduFin.education, 1, 1) = 6 THEN
+        '中专'
+        WHEN SUBSTR(eduFin.education, 1, 1) = 7 THEN
+        '专科'
+        WHEN SUBSTR(eduFin.education, 1, 1) = 8 THEN
+        '本科'
+        WHEN SUBSTR(eduFin.education, 1, 1) = 9 THEN
+        '研究生'
+        ELSE
+        '无学历'
+        END AS sedu,
+        CASE
+        WHEN SUBSTR(eduFin.degree, 1, 1) = 2 THEN
+        '博士'
+        WHEN SUBSTR(eduFin.degree, 1, 1) = 3 THEN
+        '硕士'
+        WHEN SUBSTR(eduFin.degree, 1, 1) = 4 THEN
+        '学士'
+        ELSE
+        '无学位'
+        END AS sdegree,
+        CASE
+        WHEN SUBSTR(eduFin.major, 1, 4) = '0712' THEN
+        '信息技术类'
+        WHEN SUBSTR(eduFin.major, 1, 4) = '0707' THEN
+        '地球科学及其他专业'
+        WHEN SUBSTR(eduFin.major, 1, 4) = '0709' THEN
+        '大气科学'
+        ELSE
+        '其他'
+        END AS smajor,
+        <include refid="ageCase"/> AS sage,
+        <include refid="nationCase"/> AS snation
+        FROM
+            (
+        <include refid="subPersonSelect"/>
+            ) a
+        LEFT JOIN (
+            SELECT
+            dept.id,
+            dept.dept_name
+            FROM
+            tb_dic_organization org
+            INNER JOIN tb_dic_dept dept ON org.id = dept.p_id
+            WHERE
+            org.id = #{deptCode,jdbcType=VARCHAR}
+        ) dept
+        ON a.department = dept.id
+        LEFT JOIN (
+            SELECT
+            bi.person_id,
+            bi.tec_qua
+            FROM
+            tb_set_prof_tech_post bi
+            INNER JOIN (
+                SELECT
+                b.person_id,
+                MAX(b.entry_num) AS num
+                FROM
+                tb_set_prof_tech_post b,
+                (
+                SELECT
+                a.id,
+                a.name
+                FROM
+                tb_set_person_info a
+                WHERE
+                <include refid="selectOrgDeptOption"/>
+                AND a.person_type = #{map.personType,jdbcType=VARCHAR}
+                AND a.del_flag = '0'
+                ) t
+                WHERE
+                t.id = b.person_id
+                GROUP BY
+                b.person_id
+                  ) bt
+            ON bt.num = bi.entry_num
+            AND bi.person_id = bt.person_id
+        ) b
+        ON a.id = b.person_id
+        LEFT JOIN (
+            SELECT
+            pol.person_id,
+            dic.code_name pol_sta_name
+            FROM
+            tb_set_pol_sta pol
+            INNER JOIN (
+            SELECT
+            pola.person_id,
+            MAX(pola.entry_num) AS num
+            FROM
+            tb_set_pol_sta pola,
+            (
+            SELECT
+            a.id,
+            a.name
+            FROM
+            tb_set_person_info a
+            WHERE
+            <include refid="selectOrgDeptOption"/>
+            AND a.person_type = #{map.personType,jdbcType=VARCHAR}
+            AND a.del_flag = '0'
+            ) t
+            WHERE
+            t.id = pola.person_id
+            GROUP BY
+            pola.person_id
+            ) polMax ON polMax.num = pol.entry_num
+            AND pol.person_id = polMax.person_id
+            INNER JOIN tb_dic_code_def dic ON dic.dic_id = 'BU'
+            AND pol.pol_sta_name = dic.dic_code
+        ) polFin
+        ON a.id = polFin.person_id
+        LEFT JOIN (
+            SELECT
+            edu.person_id,
+            edu.education,
+            edu.degree,
+            edu.major
+            FROM
+            tb_set_edu_deg edu
+            INNER JOIN (
+            SELECT
+            edua.person_id,
+            MAX(edua.entry_num) AS num
+            FROM
+            tb_set_edu_deg edua,
+            (
+            SELECT
+            a.id,
+            a.name
+            FROM
+            tb_set_person_info a
+            WHERE
+            <include refid="selectOrgDeptOption"/>
+            AND a.person_type = #{map.personType,jdbcType=VARCHAR}
+            AND a.del_flag = '0'
+            ) t
+            WHERE
+            t.id = edua.person_id
+            GROUP BY
+            edua.person_id
+            ) deuMax ON deuMax.num = edu.entry_num
+            WHERE
+            edu.del_flag = '0'
+            AND edu.person_id = deuMax.person_id
+        ) eduFin ON a.id = eduFin.person_id
+        LEFT JOIN (
+            SELECT
+            post.person_id,
+            dic.code_name post_name
+            FROM
+            tb_set_adm_post post
+            INNER JOIN (
+            SELECT
+            posta.person_id,
+            MAX(posta.entry_num) AS num
+            FROM
+            tb_set_adm_post posta,
+            (
+            SELECT
+            a.id,
+            a.NAME
+            FROM
+            tb_set_person_info a
+            WHERE
+            <include refid="selectOrgDeptOption"/>
+            AND a.person_type = #{map.personType,jdbcType=VARCHAR}
+            AND a.del_flag = '0'
+            ) t
+            WHERE
+            t.id = posta.person_id
+            GROUP BY
+            posta.person_id
+            ) postMax ON postMax.num = post.entry_num
+            AND post.person_id = postMax.person_id
+            INNER JOIN tb_dic_code_def dic ON dic.dic_id = 'VX'
+            AND post.post_name = dic.dic_code
+        ) postFin ON a.id = postFin.person_id
+        ORDER BY
+        t.seq
+        ) t
+        WHERE
+        t.#{dataType} = #{dataVal,jdbcType=VARCHAR}
+        LIMIT #{offSet},
+        #{pageSize}
+    </select>
+</mapper>

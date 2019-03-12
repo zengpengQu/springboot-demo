@@ -1,0 +1,1079 @@
+
+<div class="col-xs-12">
+    <!-- 统计报表-->
+    <div class="row">
+        <div class="widget-box transparent" id="recent-box">
+            <div class="widget-header">
+                <h4 class="widget-title lighter smaller">
+                    <i class="ace-icon fa fa-rss orange"></i>分类统计
+                </h4>
+
+                <div class="widget-toolbar no-border">
+                    <ul class="nav nav-tabs" id="recent-tab" style="font-weight: bold;">
+                        <li  class="{{#if statistic-index}}{{#compare statistic-index 'ssex'}}active{{/compare}}{{else}}active{{/if}}"  id="sex">
+                            <a data-toggle="tab" >性别</a>
+                        </li>
+                        <li  class="{{#compare statistic-index 'snation'}}active{{/compare}}"  id="nation">
+                            <a data-toggle="tab" >民族</a>
+                        </li>
+                        <li class="{{#compare statistic-index 'sage'}}active{{/compare}}"  id="age">
+                            <a data-toggle="tab"   >年龄</a>
+                        </li>
+                        <li class="{{#compare statistic-index 'sedu'}}active{{/compare}}" id="edu">
+                            <a data-toggle="tab"  >学历</a>
+                        </li>
+                        <li  class="{{#compare statistic-index 'sdegree'}}active {{/compare}}" id="degree">
+                            <a data-toggle="tab"   >学位</a>
+                        </li>
+                        <li  class="{{#compare statistic-index 'smajor'}}active{{/compare}}"  id="pro">
+                            <a data-toggle="tab" >专业</a>
+                        </li>
+                        <li  class="{{#compare statistic-index 'stech'}}active{{/compare}}"  id="tech">
+                            <a  data-toggle="tab">专业技术资格</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main padding-4">
+                    <div class="tab-content padding-8" id="tab-content-box">
+                        <div id="task-sex-tab" class="tab-pane active">
+                            <div class="col-sm-5">
+                                <div class="widget-box transparent" id="sex-trans">
+
+                                    <div class="widget-body" style="display: block;">
+                                        <div class="widget-main no-padding" style="height: 300px;" id="sex-tab-echarts">
+
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div>
+                                <div class="widget-box transparent">
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="widget-title lighter">
+                                            <i class="ace-icon fa fa-star orange"></i>
+                                            具体数据
+                                        </h4>
+
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body" style="display: block;font-size:18px;">
+                                        <div class="widget-main no-padding">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>性别
+                                                    </th>
+
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>数量（人）
+                                                    </th>
+
+                                                     <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>详情
+                                                     </th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody id="sex-table">
+
+
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="task-nation-tab" class="tab-pane">
+                            <div class="col-sm-5">
+                                <div class="widget-box transparent">
+
+
+                                    <div class="widget-body" style="display: block;">
+                                        <div class="widget-main no-padding" style="height: 300px;" id="nation-tab-echarts">
+
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+                                <div class="widget-box transparent">
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="widget-title lighter">
+                                            <i class="ace-icon fa fa-star orange"></i>
+                                            具体数据
+                                        </h4>
+
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body" style="display: block;font-size:18px;">
+                                        <div class="widget-main no-padding">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>民族
+                                                    </th>
+
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>数量（人）
+                                                    </th>
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>详情
+                                                    </th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody id = "nation-table">
+
+
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+
+                            </div>
+                        </div>
+                        <div id="task-age-tab" class="tab-pane">
+                            <div class="col-sm-5">
+                                <div class="widget-box transparent">
+
+
+                                    <div class="widget-body" style="display: block;">
+                                        <div class="widget-main no-padding" style="height: 300px;" id="age-tab-echarts">
+
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+                                <div class="widget-box transparent">
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="widget-title lighter">
+                                            <i class="ace-icon fa fa-star orange"></i>
+                                            具体数据
+                                        </h4>
+
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body" style="display: block;font-size:18px;">
+                                        <div class="widget-main no-padding">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>年龄段
+                                                    </th>
+
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>数量（人）
+                                                    </th>
+
+                                                     <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>详情
+                                                      </th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody id="age-table">
+
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+
+                            </div>
+                        </div>
+                        <div id="task-edu-tab" class="tab-pane">
+                            <div class="col-sm-5">
+                                <div class="widget-box transparent">
+
+
+                                    <div class="widget-body" style="display: block;">
+                                        <div class="widget-main no-padding" style="height: 300px;" id="edu-tab-echarts">
+
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+                                <div class="widget-box transparent">
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="widget-title lighter">
+                                            <i class="ace-icon fa fa-star orange"></i>
+                                            具体数据
+                                        </h4>
+
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body" style="display: block;font-size:18px;">
+                                        <div class="widget-main no-padding">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>学历
+                                                    </th>
+
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>数量（人）
+                                                    </th>
+
+                                                     <th class="gradient">
+                                                         <i class="ace-icon fa fa-caret-right blue"></i>详情
+                                                     </th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody id="education-table">
+
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+
+                            </div>
+                        </div>
+                        <div id="task-degree-tab" class="tab-pane">
+                            <div class="col-sm-5">
+                                <div class="widget-box transparent">
+
+
+                                    <div class="widget-body" style="display: block;">
+                                        <div class="widget-main no-padding" style="height: 300px;" id="degree-tab-echarts">
+
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+                                <div class="widget-box transparent">
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="widget-title lighter">
+                                            <i class="ace-icon fa fa-star orange"></i>
+                                            具体数据
+                                        </h4>
+
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body" style="display: block;font-size:18px;">
+                                        <div class="widget-main no-padding">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>学位
+                                                    </th>
+
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>数量（人）
+                                                    </th>
+
+                                                     <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>详情
+                                                     </th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody id="degree-table">
+
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+
+                            </div>
+                        </div>
+                        <div id="task-pro-tab" class="tab-pane">
+                            <div class="col-sm-5">
+
+                                <div class="widget-box transparent">
+
+
+                                    <div class="widget-body" style="display: block;">
+                                        <div class="widget-main no-padding" style="height: 300px;" id="pro-tab-echarts">
+
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+                                <div class="widget-box transparent">
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="widget-title lighter">
+                                            <i class="ace-icon fa fa-star orange"></i>
+                                            具体数据
+                                        </h4>
+
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body" style="display: block;font-size:18px;">
+                                        <div class="widget-main no-padding">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>专业
+                                                    </th>
+
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>数量（人）
+                                                    </th>
+
+                                                     <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>详情
+                                                     </th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody id="major-table">
+
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+
+                            </div>
+                        </div>
+                        <div id="task-tech-tab" class="tab-pane">
+                            <div class="col-sm-5">
+                                <div class="widget-box transparent">
+
+
+                                    <div class="widget-body" style="display: block;">
+                                        <div class="widget-main no-padding" style="height: 300px;" id="tech-tab-echarts">
+
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+                                <div class="widget-box transparent">
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="widget-title lighter">
+                                            <i class="ace-icon fa fa-star orange"></i>
+                                            具体数据
+                                        </h4>
+
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body" style="display: block;font-size:18px;">
+                                        <div class="widget-main no-padding">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>专业技术资格
+                                                    </th>
+
+                                                    <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>数量（人）
+                                                    </th>
+
+                                                     <th class="gradient">
+                                                        <i class="ace-icon fa fa-caret-right blue"></i>详情
+                                                     </th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody id="technology-table">
+
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.widget-box -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.widget-main -->
+            </div><!-- /.widget-body -->
+        </div>
+
+
+    </div>
+
+
+    <!-- PAGE CONTENT ENDS -->
+</div><!-- /.col -->
+<script type="text/javascript">
+
+    function showSexEchart(statisticData){
+        $.get("/statistic/load-person-sex.action",statisticData,function (res) {
+            var data = res.data;
+            var myChart = echarts.init(document.getElementById('sex-tab-echarts'));
+            var option = {
+                title : {
+                    text: '性别占比',
+                    x:'left'
+                },
+                noDataLoadingOption: {
+                    text: '性别占比暂无数据',
+                    effect: 'bubble',
+                    effectOption: {
+                        effect: {
+                            n: 0
+                        }
+                    }
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'right',
+                    y:'bottom',
+                    selectedMode:false,//取消图例上的点击事件
+                    data:['男','女']
+                },
+                series : [
+                    {
+                        name:'性别占比',
+                        type:'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data: data/*[
+                                   {value:32496, name:'男'},
+                                   {value:20657, name:'女'}
+                               ]*/
+                    }
+                ]
+            };
+            // 为echarts对象加载数据
+            myChart.setOption(option);
+            var apphtml =""
+            $.each(data,function(i,item){
+                var color;
+                if(i%2==0){
+                    color="green";
+                }else{
+                    color="blue";
+                }
+                apphtml += "<tr><td data-set='ssex' data-seq='"+item.name+"'>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td><td onclick='statisticOne(this);'><i  class='ace-icon fa fa-book green'></i></td></tr>";
+            });
+
+            $("#sex-table").html(apphtml);
+        });
+    }
+    function showNationEchart(statisticData){
+        $.get("/statistic/load-person-nation.action",statisticData,function (res) {
+            var data = res.data;
+            var myChart = echarts.init(document.getElementById('nation-tab-echarts'));
+            var option = {
+                title : {
+                    text: '民族占比',
+                    x:'left'
+                },
+                noDataLoadingOption: {
+                    text: '民族占比暂无数据',
+                    effect: 'bubble',
+                    effectOption: {
+                        effect: {
+                            n: 0
+                        }
+                    }
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'right',
+                    y:'bottom',
+                    selectedMode:false,//取消图例上的点击事件
+                    data:['汉族','少数民族']
+                },
+                series :[
+                    {
+                        name:'民族',
+                        type:'pie',
+                        radius : ['50%', '70%'],
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : false
+                                },
+                                labelLine : {
+                                    show : false
+                                }
+                            },
+                            emphasis : {
+                                label : {
+                                    show : true,
+                                    position : 'center',
+                                    textStyle : {
+                                        fontSize : '30',
+                                        fontWeight : 'bold'
+                                    }
+                                }
+                            }
+                        },
+                        data:data/*[
+                                   {value:50000, name:'汉族'},
+                                   {value:3153, name:'少数民族'}
+                               ]*/
+                    }
+                ]
+            };
+            // 为echarts对象加载数据
+            myChart.setOption(option);
+            var apphtml =""
+            $.each(data,function(i,item){
+                var color;
+                if(i%2==0){
+                    color="green";
+                }else{
+                    color="blue";
+                }
+                apphtml += "<tr><td data-set='snation' data-seq='"+item.name+"'>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td><td onclick='statisticOne(this);'><i  class='ace-icon fa fa-book green'></i></td></tr>";
+            });
+
+            $("#nation-table").html(apphtml);
+        });
+    }
+    function showAgeEchart(statisticData){
+        $.get("/statistic/load-person-age.action",statisticData,function (res) {
+            var data = res.data;
+            var myChart = echarts.init(document.getElementById('age-tab-echarts'));
+            var option = {
+                title : {
+                    text: '年龄结构',
+                    x:'left'
+                },
+                noDataLoadingOption: {
+                    text: '年龄结构暂无数据',
+                    effect: 'bubble',
+                    effectOption: {
+                        effect: {
+                            n: 0
+                        }
+                    }
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    data:['35以下', '36-40','41-45','46-50','51-55','56及以上'],
+                    orient : 'vertical',
+                    x : 'right',
+                    selectedMode:false,//取消图例上的点击事件
+                    y : 'bottom'
+                },
+
+                series : [
+                    {
+                        name:'人数占比',
+                        type:'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : false
+                                },
+                                labelLine : {
+                                    show : false
+                                }
+                            }
+                        },
+                        data: data/*[
+                                   {value:19167, name:'35岁以下'},
+                                   {value:6612, name:'36－40'},
+                                   {value:6765, name:'41－45'},
+                                   {value:7418, name:'46－50'},
+                                   {value:9565, name:'51－55'},
+                                   {value:3626, name:'56及以上'},
+                               ]*/
+                    }
+                ]
+            };
+            myChart.setOption(option);
+            var apphtml =""
+            $.each(data,function(i,item){
+                var color;
+                if(i%2==0){
+                    color="green";
+                }else{
+                    color="blue";
+                }
+                apphtml += "<tr><td data-set='sage' data-seq='"+item.name+"'>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td><td onclick='statisticOne(this);'><i  class='ace-icon fa fa-book green'></i></td></tr>";
+            });
+
+            $("#age-table").html(apphtml);
+        });
+    }
+    function showEduEchart(statisticData){
+        $.get("/statistic/load-person-edu.action",statisticData,function (res) {
+            var data = res.data;
+            var myChart = echarts.init(document.getElementById('edu-tab-echarts'));
+            var option = {
+                title : {
+                    text: '学历分布',
+                    x:'left'
+                },
+                noDataLoadingOption: {
+                    text: '学历分布暂无数据',
+                    effect: 'bubble',
+                    effectOption: {
+                        effect: {
+                            n: 0
+                        }
+                    }
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'right',
+                    y : 'bottom',
+                    selectedMode:false,//取消图例上的点击事件
+                    data:['研究生','本科','专科','中专','高中及以下','无学历']
+                },
+                series : [
+                    {
+                        name:'人数',
+                        type:'pie',
+                        radius : [30, 110],
+                        center : ['50%', '50%'],
+                        roseType : 'area',
+                        x: '50%',
+                        max: 40,
+                        sort : 'ascending',
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : false
+                                },
+                                labelLine : {
+                                    show : false
+                                }
+                            }
+                        },
+                        data: data/*[
+                                   {value:7424, name:'研究生'},
+                                   {value:33811, name:'本科'},
+                                   {value:7930, name:'专科'},
+                                   {value:2487, name:'中专'},
+                                   {value:1501, name:'高中及以下'}
+                               ]*/
+                    }
+                ]
+            };
+            myChart.setOption(option);
+            var apphtml =""
+            $.each(data,function(i,item){
+                var color;
+                if(i%2==0){
+                    color="green";
+                }else{
+                    color="blue";
+                }
+                apphtml += "<tr><td data-set='sedu' data-seq='"+item.name+"'>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td><td onclick='statisticOne(this);'><i  class='ace-icon fa fa-book green'></i></td></tr>";
+            });
+
+            $("#education-table").html(apphtml);
+        });
+    }
+    function showDegreeEchart(statisticData) {
+        $.get("/statistic/load-person-degree.action",statisticData,function (res) {
+            var data = res.data;
+            var myChart = echarts.init(document.getElementById('degree-tab-echarts'));
+            var option = {
+                title : {
+                    text: '学位占比',
+                    x:'left'
+                },
+                noDataLoadingOption: {
+                    text: '学位占比暂无数据',
+                    effect: 'bubble',
+                    effectOption: {
+                        effect: {
+                            n: 0
+                        }
+                    }
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'right',
+                    y:'bottom',
+                    selectedMode:false,//取消图例上的点击事件
+                    data:['博士','硕士','学士','无学位']
+                },
+                series : [
+                    {
+                        name:'性别占比',
+                        type:'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : false
+                                },
+                                labelLine : {
+                                    show : false
+                                }
+                            }
+                        },
+                        data: data
+                    }
+                ]
+            };
+            // 为echarts对象加载数据
+            myChart.setOption(option);
+            var apphtml =""
+            $.each(data,function(i,item){
+                var color;
+                if(i%2==0){
+                    color="green";
+                }else{
+                    color="blue";
+                }
+                apphtml += "<tr><td data-set='sdegree' data-seq='"+item.name+"'>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td><td onclick='statisticOne(this);'><i  class='ace-icon fa fa-book green'></i></td></tr>";
+            });
+
+            $("#degree-table").html(apphtml);
+        });
+
+    }
+    function showProEchart(statisticData) {
+        $.get("/statistic/load-person-major.action",statisticData,function (res) {
+            var data = res.data;
+            var myChart = echarts.init(document.getElementById('pro-tab-echarts'));
+            var option = {
+                title : {
+                    text: '专业占比',
+                    x:'left'
+                },
+                noDataLoadingOption: {
+                    text: '专业占比暂无数据',
+                    effect: 'bubble',
+                    effectOption: {
+                        effect: {
+                            n: 0
+                        }
+                    }
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'right',
+                    y:'bottom',
+                    selectedMode:false,//取消图例上的点击事件
+                    data : ['大气科学','地球科学及其他专业','信息技术类','其他']
+                },
+                /*    xAxis : [
+                        {
+                            type : 'category',
+                            data : ['大气科学','地球科学及其他专业','信息技术类']
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],*/
+                series : [
+                    {
+                        name:'专业占比',
+                        type:'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : false
+                                },
+                                labelLine : {
+                                    show : false
+                                }
+                            }
+                        },
+                        data:data
+                    }
+                ]
+            };
+            // 为echarts对象加载数据
+            myChart.setOption(option);
+            var apphtml =""
+            $.each(data,function(i,item){
+                var color;
+                if(i%2==0){
+                    color="green";
+                }else{
+                    color="blue";
+                }
+                apphtml += "<tr><td data-set='smajor' data-seq='"+item.name+"'>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td><td onclick='statisticOne(this);'><i  class='ace-icon fa fa-book green'></i></td></tr>";
+            });
+
+            $("#major-table").html(apphtml);
+        });
+
+    }
+    function showTechEchart(statisticData){
+        $.get("/statistic/load-person-tech.action",statisticData,function (res) {
+            var data = res.data;
+            var myChart =  echarts.init(document.getElementById('tech-tab-echarts'));
+
+            var option = {
+                title : {
+                    text: '专业技术资格分布',
+                    x:'left'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'right',
+                    y:'bottom',
+                    selectedMode:false,//取消图例上的点击事件
+                    data : ['正研','副研','中级','初级','见习','无资格']
+                },
+
+                series : [
+                    {
+                        name:'专业技术资格占比',
+                        type:'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        itemStyle : {
+                            normal : {
+                                label : {
+                                    show : false
+                                },
+                                labelLine : {
+                                    show : false
+                                }
+                            }
+                        },
+                        data:data
+                    }
+                ]
+            };
+            myChart.setOption(option);
+            var apphtml =""
+            $.each(data,function(i,item){
+                var color;
+                if(i%2==0){
+                    color="green";
+                }else{
+                    color="blue";
+                }
+                apphtml += "<tr><td data-set='stech' data-seq='"+item.name+"'>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td><td onclick='statisticOne(this);'><i  class='ace-icon fa fa-book green'></i></td></tr>";
+            });
+
+            $("#technology-table").html(apphtml);
+        });
+    }
+    function statisticOne(data){
+        var $data=$(data);
+        //alert($data.find('td').eq(0).data("set")+","+$data.find('td').eq(0).data("seq"));
+        var typeTitle = $($data.parent().parent().parent().find("th")[0]).text().trim() +
+                ": " +  $($data.parent().find("td")[0]).text().trim() +
+                " 共" + $($data.parent().find("td")[1]).text().trim() + "人";
+        var statisticIndex = $data.parent().find('td').eq(0).data("set");
+        var statisticVal = $data.parent().find('td').eq(0).data("seq");
+        var personType = $("#person-type-select").val();
+        var associate = $("#associateValue").val();
+        var statisticData={"personType":personType,"orgCode":associate,"dataType":statisticIndex,"dataVal":statisticVal, "typeTitle":typeTitle};
+        HBUtil.loadContent("./rosterListBox.hbs",{"statistic-index":statisticIndex,"statisticData":statisticData},".main-ajax-content");
+    }
+    jQuery(function($) {
+        $(".pageIndex").val("");
+        $(".pageIndex").val("statisticChart");
+        var statisticData={};
+        var $tabContentBox=$("#tab-content-box");
+        var associate = $("#associateValue").val();
+        var associateName = $("#associateDemo").val();
+        var headHtml = "   <select class=\"form-control\" id=\"person-type-select\" style=\"width: 100px;display:inline;\" readonly=\"\">\n" +
+                "        <option value=\"ZZ\">在职</option>\n" +
+                "        <option value=\"LT\">离退</option>\n" +
+                "        <option value=\"DF\">地方</option>\n" +
+                "        <option value=\"LW\">劳务</option>\n" +
+                "        <option value=\"BW\">编外</option>\n" +
+                "    </select>\n" +
+                "    <button class=\"btn btn-success btn-sm\" style=\"float: right;\" id=\"back-index-btn\">\n" +
+                "        <i class=\"ace-icon fa fa-reply icon-only\"></i>\n" +
+                "    </button>";
+        var personSelect = $("#person-type-select").val();
+        var personType = $("#person-type-select").val();
+
+        if(personSelect==undefined){
+            $(".content-block").append(headHtml);
+        }else{
+            $("#person-type-select").show();
+        }
+       // if($("#back-index-btn")){
+           // $("#back-index-btn").remove();
+        //}
+        statisticData={"personType":personType,"orgCode":associate,"orgName":associateName};
+        $("#back-index-btn").unbind().click(function () {
+            var personType = $("#person-type-select").val();
+            var associate = $("#associateValue").val();
+            var associateName = $("#associateDemo").val();
+            statisticData={"personType":personType,"orgCode":associate,"orgName":associateName};
+            HBUtil.loadContent("./indexPage.hbs",{"statisticData":statisticData},".main-content");
+        });
+        $("#person-type-select").change(function(){
+            var personType = $("#person-type-select").val();
+            var associate = $("#associateValue").val();
+            var associateName = $("#associateDemo").val();
+            statisticData={"personType":personType,"orgCode":associate,"orgName":associateName};
+            $("#recent-tab > li").each(function () {
+                if($(this).attr("class")=="active"){
+                    var idAtrr = $(this).attr("id");
+                    switch (idAtrr){
+                        case 'sex':showSexEchart(statisticData);
+                            break;
+                        case 'nation':showNationEchart(statisticData);
+                            break;
+                        case 'age':showAgeEchart(statisticData);
+                            break;
+                        case 'edu':showEduEchart(statisticData);
+                            break;
+                        case 'degree':showDegreeEchart(statisticData);
+                            break;
+                        case 'pro':showProEchart(statisticData);
+                            break;
+                        case 'tech':showTechEchart(statisticData);
+                            break;
+                    }
+                }
+            });
+        });
+        switch ('{{statistic-index}}'){
+            case 'ssex':showSexEchart(statisticData);
+                $tabContentBox.find(".tab-pane").hide();
+                $tabContentBox.find(".tab-pane").eq(0).show();
+                break;
+            case 'snation':showNationEchart(statisticData);
+                $tabContentBox.find(".tab-pane").hide();
+                $tabContentBox.find(".tab-pane").eq(1).show();
+                break;
+            case 'sage':showAgeEchart(statisticData);
+                $tabContentBox.find(".tab-pane").hide();
+                $tabContentBox.find(".tab-pane").eq(2).show();
+                break;
+            case 'sedu':showEduEchart(statisticData);
+                $tabContentBox.find(".tab-pane").hide();
+                $tabContentBox.find(".tab-pane").eq(3).show();
+                break;
+            case 'sdegree':showDegreeEchart(statisticData);
+                $tabContentBox.find(".tab-pane").hide();
+                $tabContentBox.find(".tab-pane").eq(4).show();
+                break;
+            case 'smajor':showProEchart(statisticData);
+                $tabContentBox.find(".tab-pane").hide();
+                $tabContentBox.find(".tab-pane").eq(5).show();
+                break;
+            case 'stech':showTechEchart(statisticData);
+                $tabContentBox.find(".tab-pane").hide();
+                $tabContentBox.find(".tab-pane").eq(6).show();
+                break;
+            case '':
+                showSexEchart(statisticData);
+                $tabContentBox.find(".tab-pane").hide();
+                $tabContentBox.find(".tab-pane").eq(0).show();
+                break;
+        }
+        /*$("#recent-tab > li").each(function () {
+            if($(this).attr("class")=="active"){
+                var idAtrr = $(this).attr("id");
+                switch (idAtrr){
+                    case 'sex':showSexEchart(statisticData);
+                        break;
+                    case 'nation':showNationEchart(statisticData);
+                        break;
+                    case 'age':showAgeEchart(statisticData);
+                        break;
+                    case 'edu':showEduEchart(statisticData);
+                        break;
+                    case 'degree':showDegreeEchart(statisticData);
+                        break;
+                    case 'pro':showProEchart(statisticData);
+                        break;
+                    case 'tech':showTechEchart(statisticData);
+                        break;
+                }
+            }
+        });*/
+
+
+        $("#recent-tab").off().on("click","li",function(){
+            var index=$(this).index();
+            $tabContentBox.find(".tab-pane").eq(index).show().siblings().hide();
+            var personType = $("#person-type-select").val();
+            var associate = $("#associateValue").val();
+            statisticData={"personType":personType,"orgCode":associate};
+            EchartEventIndex(index,statisticData);
+        });
+        function EchartEventIndex(index,statisticData) {
+            switch (index){
+                case 0:showSexEchart(statisticData);
+                    break;
+                case 1:showNationEchart(statisticData);
+                    break;
+                case 2:showAgeEchart(statisticData);
+                    break;
+                case 3:showEduEchart(statisticData);
+                    break;
+                case 4:showDegreeEchart(statisticData);
+                    break;
+                case 5:showProEchart(statisticData);
+                    break;
+                case 6:showTechEchart(statisticData);
+                    break;
+
+            }
+        }
+
+
+    })
+</script>

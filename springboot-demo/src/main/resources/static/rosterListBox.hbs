@@ -1,0 +1,273 @@
+
+<div id="letter"></div>
+<div id="ulist" class="sort_box">
+    <div class="widget-main no-padding">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="gradient" style="width: 60px;">
+                    <i class=""></i>姓名
+                </th>
+                <th class="gradient">
+                    <i class=""></i>部门
+                </th>
+                <th class="gradient">
+                    <i class=""></i>职务
+                </th>
+                <th class="gradient">
+                    <i class=""></i>性别
+                </th>
+                <th class="gradient">
+                    <i class=""></i>年龄
+                </th>
+                <th class="gradient">
+                    <i class=""></i>政治面貌
+                </th>
+                <th class="gradient">
+                    <i class=""></i>职称
+                </th>
+            </tr>
+            </thead>
+            <tbody id="ulist-table">
+
+            </tbody>
+        </table>
+        <div id="loadingDataOver" class="text-center" style="display: none;">
+            数据已加载完
+        </div>
+        <div id="loadingDataTag" style="display: none;">
+            <img src="data:image/gif;base64,R0lGODlhGQAZAJECAK7PTQBjpv///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh/wtYTVAgRGF0YVhNUDw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5OTYyNTQ4Ni02ZGVkLTI2NDUtODEwMy1kN2M4ODE4OWMxMTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RUNGNUFGRUFGREFCMTFFM0FCNzVDRjQ1QzI4QjFBNjgiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RUNGNUFGRTlGREFCMTFFM0FCNzVDRjQ1QzI4QjFBNjgiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjk5NjI1NDg2LTZkZWQtMjY0NS04MTAzLWQ3Yzg4MTg5YzExNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OTYyNTQ4Ni02ZGVkLTI2NDUtODEwMy1kN2M4ODE4OWMxMTQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQFCgACACwAAAAAGQAZAAACTpSPqcu9AKMUodqLpAb0+rxFnWeBIUdixwmNqRm6JLzJ38raqsGiaUXT6EqO4uIHRAYQyiHw0GxCkc7l9FdlUqWGKPX64mbFXqzxjDYWAAAh+QQFCgACACwCAAIAFQAKAAACHYyPAsuNH1SbME1ajbwra854Edh5GyeeV0oCLFkAACH5BAUKAAIALA0AAgAKABUAAAIUjI+py+0PYxO0WoCz3rz7D4bi+BUAIfkEBQoAAgAsAgANABUACgAAAh2EjxLLjQ9UmzBNWo28K2vOeBHYeRsnnldKBixZAAA7">
+            正在加载中
+        </div>
+        <div>
+            <span class="bigger-120 bolder">&emsp;</span>
+        </div>
+    </div>
+</div>
+<input type="text" value="{{statistic-index}}" style="display:none;" id="statisticIndex">
+<script>
+    var rosterOrgId;
+    var rosterFlag = 1;
+    var listPage = 0;
+    var loadFlag = true;
+    var typeTitle = "{{statisticData.typeTitle}}";
+    var statisticIndex ="{{statistic-index}}";
+    var orgCode = "{{statisticData.orgCode}}";
+    var personType = "{{statisticData.personType}}";
+    var dataType = "{{statisticData.dataType}}";
+    var dataVal = "{{statisticData.dataVal}}";
+    var statisticData={"orgCode":orgCode,"personType":personType,"dataType":dataType,"dataVal":dataVal};
+    function updatePersonData(orgId) {
+        rosterFlag = 1;
+        listPage = 0;
+        $("#ulist-table").empty();
+        $.ajax({
+            type: "GET",
+            url: "/roster/load-person-roster-data.action",
+            data: {orgId: orgId, personType: $("#person-type-select").val(), page: listPage},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            beforeSend: function(jqXHR, settings){
+                $("#loadingDataOver").hide();
+                loadFlag = false;
+                $("#loadingDataTag").show();
+                reWindowScroll();
+            },
+            complete: function(jqXHR, textStatus){
+                loadFlag = true;
+                $("#loadingDataTag").hide();
+            },
+            success: function (response) {
+                var res = JSON.parse(response);
+                loadDataToUserList(res);
+            }
+        });
+    }
+
+    function loadDataToUserList(res) {
+        if(res.length === 0){
+            rosterFlag = 3;
+            $("#loadingDataOver").show();
+            $(window).scroll().unbind();
+        }else{
+            $("#loadingDataOver").hide();
+        }
+        for (var i = 0; i < res.length; i++) {
+            $('#ulist-table').append('<tr class=".sort_list" onclick="loadPersonInfo(this)"><td style="display: none" id="personId">' + res[i].ID + '</td><td>' + res[i].name + '</td><td>' + $.trim(res[i].dept) + '</td><td>' + res[i].postName + '</td><td>' + res[i].sex + '</td><td>' + res[i].age + '</td><td>' + res[i].mm + '</td><td>' + res[i].post + '</td></tr>');
+        }
+    }
+
+
+    $(document).ready(function () {
+        $(".pageIndex").val("");
+        $(".pageIndex").val("rosterListBox");
+        rosterOrgId = $('#associateValue').val();
+    {{#if statistic-index}}
+        $("#pleaseSelect").hide();
+        $("#person-type-select").hide();
+        $("#associateDemo").css({"display":"none"});
+        $("#associateValue").css({"display":"none"});
+
+
+        // 进入加载
+        loadDataByListPersonByStatistic();
+
+        // PC端下拉到底部
+        $(window).unbind().on('scroll',function(){
+            if($(window).scrollTop()>=$(document).height()-$(window).height() && loadFlag){
+                loadDataByListPersonByStatistic();
+            }
+        })
+        function loadDataByListPersonByStatistic(){
+            $("#typeTitle").html('<i class="fa fa-fire"></i>&nbsp;' + typeTitle);
+            $("#typeTitle").show();
+            $.ajax({
+                type: "GET",
+                url: "/statistic/list-person-by-statistic.action",
+                data: {"personType":personType,"orgCode":orgCode,"dataType":dataType,"dataVal":dataVal,"page":listPage},
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                beforeSend: function(jqXHR, settings){
+                    $("#loadingDataOver").hide();
+                    ++listPage;
+                    loadFlag = false;
+                    $("#loadingDataTag").show();
+                },
+                complete: function(jqXHR, textStatus){
+                    loadFlag = true;
+                    $("#loadingDataTag").hide();
+                },
+                success: function (response) {
+                    var res = JSON.parse(response.data);
+                    loadDataToUserList(res);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    --listPage;
+                }
+            });
+        }
+    {{else}}
+        var headHtml = "   <select class=\"form-control\" id=\"person-type-select\" style=\"width: 100px;display:inline;\" readonly=\"\">\n" +
+                "        <option value=\"ZZ\">在职</option>\n" +
+                "        <option value=\"LT\">离退</option>\n" +
+                "        <option value=\"DF\">地方</option>\n" +
+                "        <option value=\"LW\">劳务</option>\n" +
+                "        <option value=\"BY\">编外</option>\n" +
+                "    </select>";
+        var personSelect = $("#person-type-select").val();
+        if(personSelect==undefined){
+            $(".content-block").append(headHtml);
+        }
+
+        $("#person-type-select").change(function(){
+            $("#searchPersonName").val("");
+            updatePersonData($("#associateValue").val());
+        });
+
+        // 进入加载
+        loadDataLoadPersonRosterData();
+
+    {{/if}}
+
+        $("#searchPerson").unbind().on('click', function () {
+            $("#ulist-table").empty();
+            rosterFlag = 2;
+            listPage = 0;
+            loadDataPersonDataWithPersonName();
+
+        });
+    })
+
+    function loadPersonInfo(data) {
+        $(window).scroll().unbind();
+        var data = $(data);
+        var personId = data.find('#personId').html();
+        HBUtil.loadContent("./personInformation.hbs", {"personData": "/roster/load-person-data.action?personId=" + personId,"statisticData":statisticData,"statistic-index":statisticIndex}, ".main-ajax-content");
+        $("#pleaseSelect").hide();
+        $("#person-type-select").hide();
+    }
+        {{#if statistic-index}}
+        $("#back-index-btn").unbind().on('click', function () {
+            $("#typeTitle").hide();
+            $("#typeTitle").html("");
+            $(window).scroll().unbind();
+            $('#associateDemo').css('display','');
+            $('#associateValue').css('display','');
+            var statisticIndex = $("#statisticIndex").val();
+            HBUtil.loadContent("./statisticChart.hbs", {"statistic-index": statisticIndex}, ".main-ajax-content");
+        });
+        {{/if}}
+
+    function reWindowScroll() {
+        // PC端下拉到底部
+        $(window).unbind().on('scroll', function () {
+            if ($(window).scrollTop() >= $(document).height() - $(window).height() && loadFlag) {
+                if (rosterFlag == 1) {
+                    loadDataLoadPersonRosterData();
+                } else if (rosterFlag == 2) {
+                    loadDataPersonDataWithPersonName();
+                }
+            }
+        })
+    }
+    function loadDataLoadPersonRosterData() {
+        $.ajax({
+            type: "GET",
+            url: "/roster/load-person-roster-data.action",
+            data: {orgId: rosterOrgId, personType: $("#person-type-select").val(), page: listPage},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            beforeSend: function (jqXHR, settings) {
+                $("#loadingDataOver").hide();
+                ++listPage;
+                loadFlag = false;
+                $("#loadingDataTag").show();
+                reWindowScroll();
+            },
+            complete: function (jqXHR, textStatus) {
+                loadFlag = true;
+                $("#loadingDataTag").hide();
+            },
+            success: function (response) {
+                var res = JSON.parse(response);
+                loadDataToUserList(res);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                --listPage;
+            }
+        });
+    }
+    function loadDataPersonDataWithPersonName(){
+        var personName = document.getElementById("searchPersonName").value;
+        var orgCode = $('#associateValue').val();
+        $.ajax({
+            type: "GET",
+            url: "/roster/load-person-data-with-person-name.action",
+            data: {personName: personName, orgId: orgCode, personType: $("#person-type-select").val(), page: listPage},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            beforeSend: function (jqXHR, settings) {
+                $("#loadingDataOver").hide();
+                ++listPage;
+                loadFlag = false;
+                $("#loadingDataTag").show();
+                reWindowScroll();
+            },
+            complete: function (jqXHR, textStatus) {
+                loadFlag = true;
+                $("#loadingDataTag").hide();
+            },
+            success: function (response) {
+                var res = JSON.parse(response);
+                loadDataToUserList(res);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                --listPage;
+            }
+        });
+    }
+</script>

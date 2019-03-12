@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cmahrmobile.hr.mapper.PersonSetInfoDao">
+    <sql id="sexCase">
+		CASE WHEN person.SEX = '1' THEN '男' WHEN person.SEX = '2' THEN '女' END
+	</sql>
+    <sql id="postCase">
+		CASE WHEN SUBSTR( tec.TEC_QUA, LENGTH( tec.TEC_QUA ), 1 ) = '1' THEN
+			'正研'
+			WHEN SUBSTR( tec.TEC_QUA, LENGTH( tec.TEC_QUA ), 1 ) = '2' THEN
+			'副研'
+			WHEN SUBSTR( tec.TEC_QUA, LENGTH( tec.TEC_QUA ), 1 ) = '3' THEN
+			'中级'
+			WHEN SUBSTR( tec.TEC_QUA, LENGTH( tec.TEC_QUA ), 1 ) = '5'OR SUBSTR( tec.TEC_QUA, LENGTH( tec.TEC_QUA ), 1 ) = '4' THEN
+			'初级'
+			WHEN SUBSTR( tec.TEC_QUA, LENGTH( tec.TEC_QUA ), 1 ) = '9' THEN
+			'见习' ELSE '无资格'
+		 END
+	</sql>
+    <select id="loadPersonDataWithPersonId" resultType="java.util.HashMap">
+        SELECT
+        person.id personId,
+        person.NAME personName,
+        org.ORG_NAME orgName,
+        dept.DEPT_NAME deptName,
+        (<include refid="sexCase"/>) AS sex,
+        person.AGE,
+        dic.CODE_NAME nationName,
+        distrist.DISTRICT_NAME districtName,
+        eduFin.graduate_school graduateSchool,
+        eduFin.education,
+        eduFin.degree,
+        eduFin.major,
+        (<include refid="postCase"/>) AS post,
+        polFin.polName
+        FROM
+        tb_set_person_info person
+        LEFT JOIN tb_dic_organization org ON person.UNIT_NAME = org.ID
+        LEFT JOIN tb_dic_dept dept ON person.DEPARTMENT = dept.ID
+        LEFT JOIN tb_dic_district distrist ON person.NATIVE_PLACE = distrist.ID
+        LEFT JOIN (
+        SELECT
+        edu.PERSON_ID,
+        edu.graduate_school,
+        dic.CODE_NAME education,
+        dica.CODE_NAME degree,
+        dicb.CODE_NAME major
+        FROM
+        (
+        SELECT
+        edua.PERSON_ID,
+        MAX( edua.ENTRY_NUM ) AS num
+        FROM
+        tb_set_edu_deg edua,
+        ( SELECT id, NAME FROM tb_set_person_info WHERE id =#{personId,jdbcType=VARCHAR} ) t
+        WHERE
+        t.id = edua.person_id
+        GROUP BY
+        edua.PERSON_ID
+        ) eduaPerson
+        LEFT JOIN tb_set_edu_deg edu ON edu.PERSON_ID = eduaPerson.PERSON_ID
+        AND edu.del_flag = '0'
+        AND eduaPerson.num = edu.ENTRY_NUM
+        LEFT JOIN tb_dic_code_def dic ON dic.DIC_ID = 'WL'
+        AND edu.education = dic.DIC_CODE
+        LEFT JOIN tb_dic_code_def dica ON dica.DIC_ID = 'AN'
+        AND edu.degree = dica.DIC_CODE
+        LEFT JOIN tb_dic_code_def dicb ON dicb.DIC_ID = 'AI'
+        AND edu.major = dicb.DIC_CODE
+        ) eduFin ON person.id = eduFin.PERSON_ID
+        LEFT JOIN tb_dic_code_def dic ON dic.DIC_ID = 'AE'
+        AND person.NATION = dic.dic_code
+        LEFT JOIN (
+        SELECT
+        bi.ENTRY_NUM,
+        bi.PERSON_ID,
+        bi.TEC_QUA
+        FROM
+        (
+        SELECT
+        b.PERSON_ID,
+        MAX( b.ENTRY_NUM ) AS num
+        FROM
+        tb_set_prof_tech_post b,
+        ( SELECT id, NAME FROM tb_set_person_info WHERE id =#{personId,jdbcType=VARCHAR} ) t
+        WHERE
+        t.id = b.person_id
+        GROUP BY
+        b.PERSON_ID
+        ) postPerson
+        LEFT JOIN tb_set_prof_tech_post bi ON bi.PERSON_ID = postPerson.PERSON_ID
+        AND bi.del_flag = '0'
+        AND postPerson.num = bi.ENTRY_NUM
+        ) tec ON person.id = tec.PERSON_ID
+        LEFT JOIN (
+        SELECT
+        pol.PERSON_ID,
+        dic.CODE_NAME polName
+        FROM
+        (
+        SELECT
+        pola.PERSON_ID,
+        MAX( pola.ENTRY_NUM ) AS num
+        FROM
+        tb_set_pol_sta pola,
+        ( SELECT id, NAME FROM tb_set_person_info WHERE id =#{personId,jdbcType=VARCHAR} ) t
+        WHERE
+        t.id = pola.person_id
+        GROUP BY
+        pola.PERSON_ID
+        ) polaPerson
+        LEFT JOIN tb_set_pol_sta pol ON pol.PERSON_ID = polaPerson.PERSON_ID
+        AND pol.del_flag = '0'
+        AND polaPerson.num = pol.ENTRY_NUM
+        LEFT JOIN tb_dic_code_def dic ON dic.DIC_ID = 'BU'
+        AND pol.pol_sta_name = dic.DIC_CODE
+        ) polFin ON person.id = polFin.PERSON_ID
+        WHERE
+        person.DEL_FLAG = '0'
+        AND person.ID = #{personId,jdbcType=VARCHAR}
+    </select>
+</mapper>

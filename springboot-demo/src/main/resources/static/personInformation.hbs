@@ -1,0 +1,145 @@
+<div class="col-xs-12">
+    <div>
+        <div id="user-profile-1" class="user-profile row" style="font-size: 16px;">
+{{#each personData.personData}}
+            <div class="col-xs-12 col-sm-3 center">
+                <div>
+                    <div class="space-4"></div>
+
+                    <div class="width-80 label label-info label-xlg" style="background-color: #5198e6;height:38px;font-size:20px">
+                        <div class="inline position-relative">
+                            <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                <span class="white">{{personName}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-6"></div>
+            </div>
+            <div class="col-xs-12 col-sm-9">
+                <div class="profile-user-info bolder">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name" style="width: 110px;"> 单位 </div>
+                        <div class="profile-info-value">
+                            <span>{{orgName}}</span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 部门 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{deptName}}</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 性别 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{sex}}</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 年龄 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{AGE}}</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 民族 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{nationName}}</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 籍贯 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{districtName}}</span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 政治面貌 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{polName}}</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 毕业院校 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{graduateSchool}}</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 学历 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{education}}</span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 学位 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{degree}}</span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 所学专业 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{major}}</span>
+                        </div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> 专业技术职称 </div>
+
+                        <div class="profile-info-value">
+                            <span>{{post}}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="space-20"></div>
+            </div>
+        </div>
+{{/each}}
+    </div>
+</div>
+<script>
+    {{#if statistic-index}}
+        var typeTitle = $("#typeTitle").text().trim();
+        var statisticIndex ="{{statistic-index}}";
+        var orgCode = "{{statisticData.orgCode}}";
+        var personType = "{{statisticData.personType}}";
+        var dataType = "{{statisticData.dataType}}";
+        var dataVal = "{{statisticData.dataVal}}";
+        var statisticData={"orgCode":orgCode,"personType":personType,"dataType":dataType,"dataVal":dataVal,"typeTitle":typeTitle};
+    $('#back-index-btn').unbind().on('click',function () {
+        HBUtil.loadContent("./rosterListBox.hbs",{"statistic-index":statisticIndex,"statisticData":statisticData},".main-ajax-content");
+        $('#associateDemo').css('display','none');
+        $('#associateValue').css('display','none');
+    })
+    {{else}}
+    $('#back-index-btn').unbind().on('click',function () {
+        HBUtil.loadContent("./rosterPage.hbs",{'orgData':orgCode},".main-ajax-content");
+        $('#associateDemo').css('display','');
+        $('#associateValue').css('display','');
+        $("#pleaseSelect").show();
+        $("#person-type-select").show();
+    })
+    {{/if}}
+
+    $('#associateDemo').css('display','none');
+    $('#associateValue').css('display','none');
+</script>

@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>人力资源移动端-Demo</title>
+
+		<meta name="description" content="overview &amp; stats" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="./css/assets/bootstrap.css" />
+		<link rel="stylesheet" href="./js/components/font-awesome/css/font-awesome.css" />
+
+		<!-- page specific plugin styles -->
+
+		<!-- text fonts -->
+		<link rel="stylesheet" href="./css/assets/ace-fonts.css" />
+
+		<!-- ace styles -->
+		<link rel="stylesheet" href="./css/assets/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" href="./css/assets/ace-part2.css" class="ace-main-stylesheet" />
+		<![endif]-->
+		<link rel="stylesheet" href="./css/assets/ace-skins.css" />
+		<link rel="stylesheet" href="./css/assets/ace-rtl.css" />
+
+		<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="./css/assets/ace-ie.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+		<script src="./js/assets/ace-extra.js"></script>
+
+		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+		<!--[if lte IE 8]>
+		<script src="./js/components/html5shiv/dist/html5shiv.min.js"></script>
+		<script src="./js/components/respond/dest/respond.min.js"></script>
+		<![endif]-->
+
+		<!-- 加入Echart-->
+        <script src="./js/echarts-2.2.7/echarts-all.js"></script>
+		<style>
+			.gradient{
+				background: #F7F7F7;
+				background: -moz-linear-gradient(top,  #F7F7F7 0%, #E3E5E7 100%);
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F7F7F7), color-stop(100%,#E3E5E7));
+				background: -webkit-linear-gradient(top,  #F7F7F7 0%, #E3E5E7 100%);
+				background: -o-linear-gradient(top,  #F7F7F7 0%, #E3E5E7 100%);
+				background: -ms-linear-gradient(top,  #F7F7F7 0%, #E3E5E7 100%);
+				background: linear-gradient(to bottom,  #F7F7F7 0%, #E3E5E7 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F7F7F7', endColorstr='#E3E5E7',GradientType=0 );
+			}
+			:root .gradient{filter:none;}
+		</style>
+        <link rel="stylesheet" href="./js/associate/css/LArea.css">
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default          ace-save-state">
+			<div class="navbar-container ace-save-state" id="navbar-container">
+
+				<div  style="margin: 0 auto;width: 310px;">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand" >
+						<small>
+							<!--<i class="fa fa-leaf"></i>-->
+							中国气象局人力资源查询系统
+						</small>
+					</a>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container ace-save-state" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.loadState('main-container')}catch(e){}
+			</script>
+
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon glyphicon glyphicon-map-marker" style="color: red;"></i>
+								您目前所在的地区：<span id="baidu_geo">北京市海淀区</span>
+							</li>
+						</ul><!-- /.breadcrumb -->
+
+						<!-- #section:basics/content.searchbox -->
+						<div class="nav-search" id="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="人员姓名..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+							</form>
+						</div><!-- /.nav-search -->
+
+						<!-- /section:basics/content.searchbox -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+
+						<!--</div>-->
+						<div class="page-header" style="font-weight: bold;margin-top: -10px;">
+
+                            <div>
+                                <div class="content-block">
+                                    <input id="associateDemo" type="text" readonly="" placeholder="城市选择特效"  value="广东省,深圳市,南山区"/>
+                                    <input id="associateValue" type="hidden"  value="20,234,504"/>
+                                    <select class="form-control" id="person-type-select" style="width: 100px;float: left;" readonly="">
+                                        <option value="ZZ">在职</option>
+                                        <option value="LT">离退</option>
+                                        <option value="DZ">调转</option>
+                                        <option value="DF">地方</option>
+                                        <option value="LW">劳务</option>
+                                        <option value="BY">编外</option>
+                                        <option value="FP">返聘</option>
+                                        <option value="JY">在职减员</option>
+                                        <option value="LJ">离退减员</option>
+                                        <option value="WG">亡故</option>
+                                    </select>
+                                    <button class="btn btn-success btn-sm" style="float: right;" id="back-index-btn">
+                                        <i class="ace-icon fa fa-reply icon-only"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+
+                                <!-- 统计报表-->
+								<div class="row">
+									<div class="widget-box transparent" id="recent-box">
+										<div class="widget-header">
+											<h4 class="widget-title lighter smaller">
+												<i class="ace-icon fa fa-rss orange"></i>分类统计
+											</h4>
+
+											<div class="widget-toolbar no-border">
+												<ul class="nav nav-tabs" id="recent-tab" style="font-weight: bold;">
+													<li class="active" id="sex">
+														<a data-toggle="tab" >性别</a>
+													</li>
+													<li  id="nation">
+														<a data-toggle="tab" >民族</a>
+													</li>
+													<li id="age">
+														<a data-toggle="tab"   >年龄</a>
+													</li>
+													<li id="edu">
+														<a data-toggle="tab"  >学历</a>
+													</li>
+													<li id="degree">
+														<a data-toggle="tab"   >学位</a>
+													</li>
+													<li id="pro">
+													    <a data-toggle="tab" >专业</a>
+													</li>
+													<li id="tech">
+														<a  data-toggle="tab">专业技术资格</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+
+										<div class="widget-body">
+											<div class="widget-main padding-4">
+												<div class="tab-content padding-8" id="tab-content-box">
+													<div id="task-sex-tab" class="tab-pane active">
+														<div class="col-sm-5">
+                                                            <div class="widget-box transparent" id="sex-trans">
+                                                                <div class="widget-header widget-header-flat">
+                                                                    <h4 class="widget-title lighter">
+                                                                        <i class="ace-icon fa fa-star orange"></i>
+                                                                        数据对比
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="widget-body" style="display: block;">
+                                                                    <div class="widget-main no-padding" style="height: 300px;" id="sex-tab-echarts">
+
+                                                                    </div><!-- /.widget-main -->
+                                                                </div><!-- /.widget-body -->
+                                                            </div>
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="widget-title lighter">
+																		<i class="ace-icon fa fa-star orange"></i>
+																		具体数据
+																	</h4>
+
+																	<div class="widget-toolbar">
+																		<a href="#" data-action="collapse">
+																			<i class="ace-icon fa fa-chevron-up"></i>
+																		</a>
+																	</div>
+																</div>
+
+																<div class="widget-body" style="display: block;">
+																	<div class="widget-main no-padding">
+																		<table class="table table-bordered">
+																			<thead>
+																			<tr>
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>性别
+																				</th>
+
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>数量
+																				</th>
+																			</tr>
+																			</thead>
+
+																			<tbody id="sex-table">
+
+
+																			</tbody>
+																		</table>
+																	</div><!-- /.widget-main -->
+																</div><!-- /.widget-body -->
+															</div>
+
+														</div>
+													</div>
+
+													<div id="task-nation-tab" class="tab-pane">
+														<div class="col-sm-5">
+                                                            <div class="widget-box transparent">
+                                                                <div class="widget-header widget-header-flat">
+                                                                    <h4 class="widget-title lighter">
+                                                                        <i class="ace-icon fa fa-star orange"></i>
+                                                                        数据对比
+                                                                    </h4>
+
+                                                                    <!--<div class="widget-toolbar">
+                                                                        <a href="#" data-action="collapse">
+                                                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                                                        </a>
+                                                                    </div>-->
+                                                                </div>
+
+                                                                <div class="widget-body" style="display: block;">
+                                                                    <div class="widget-main no-padding" style="height: 300px;" id="nation-tab-echarts">
+
+                                                                    </div><!-- /.widget-main -->
+                                                                </div><!-- /.widget-body -->
+                                                            </div><!-- /.widget-box -->
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="widget-title lighter">
+																		<i class="ace-icon fa fa-star orange"></i>
+																		具体数据
+																	</h4>
+
+																	<div class="widget-toolbar">
+																		<a href="#" data-action="collapse">
+																			<i class="ace-icon fa fa-chevron-up"></i>
+																		</a>
+																	</div>
+																</div>
+
+																<div class="widget-body" style="display: block;">
+																	<div class="widget-main no-padding">
+																		<table class="table table-bordered">
+																			<thead>
+																			<tr>
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>民族
+																				</th>
+
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>数量
+																				</th>
+																			</tr>
+																			</thead>
+
+																			<tbody id = "nation-table">
+
+
+																			</tbody>
+																		</table>
+																	</div><!-- /.widget-main -->
+																</div><!-- /.widget-body -->
+															</div><!-- /.widget-box -->
+
+														</div>
+													</div>
+													<div id="task-age-tab" class="tab-pane">
+														<div class="col-sm-5">
+                                                            <div class="widget-box transparent">
+                                                                <div class="widget-header widget-header-flat">
+                                                                    <h4 class="widget-title lighter">
+                                                                        <i class="ace-icon fa fa-star orange"></i>
+                                                                        数据对比
+                                                                    </h4>
+
+                                                                    <!--	<div class="widget-toolbar">
+                                                                            <a href="#" data-action="collapse">
+                                                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                                                            </a>
+                                                                        </div>-->
+                                                                </div>
+
+                                                                <div class="widget-body" style="display: block;">
+                                                                    <div class="widget-main no-padding" style="height: 300px;" id="age-tab-echarts">
+
+                                                                    </div><!-- /.widget-main -->
+                                                                </div><!-- /.widget-body -->
+                                                            </div><!-- /.widget-box -->
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="widget-title lighter">
+																		<i class="ace-icon fa fa-star orange"></i>
+																		具体数据
+																	</h4>
+
+																	<div class="widget-toolbar">
+																		<a href="#" data-action="collapse">
+																			<i class="ace-icon fa fa-chevron-up"></i>
+																		</a>
+																	</div>
+																</div>
+
+																<div class="widget-body" style="display: block;">
+																	<div class="widget-main no-padding">
+																		<table class="table table-bordered">
+																			<thead>
+																			<tr>
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>年龄段
+																				</th>
+
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>数量
+																				</th>
+																			</tr>
+																			</thead>
+
+																			<tbody id="age-table">
+
+																			</tbody>
+																		</table>
+																	</div><!-- /.widget-main -->
+																</div><!-- /.widget-body -->
+															</div><!-- /.widget-box -->
+
+														</div>
+													</div>
+													<div id="task-edu-tab" class="tab-pane">
+														<div class="col-sm-5">
+                                                            <div class="widget-box transparent">
+                                                                <div class="widget-header widget-header-flat">
+                                                                    <h4 class="widget-title lighter">
+                                                                        <i class="ace-icon fa fa-star orange"></i>
+                                                                        数据对比
+                                                                    </h4>
+
+                                                                    <!--	<div class="widget-toolbar">
+                                                                            <a href="#" data-action="collapse">
+                                                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                                                            </a>
+                                                                        </div>-->
+                                                                </div>
+
+                                                                <div class="widget-body" style="display: block;">
+                                                                    <div class="widget-main no-padding" style="height: 300px;" id="edu-tab-echarts">
+
+                                                                    </div><!-- /.widget-main -->
+                                                                </div><!-- /.widget-body -->
+                                                            </div><!-- /.widget-box -->
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="widget-title lighter">
+																		<i class="ace-icon fa fa-star orange"></i>
+																		具体数据
+																	</h4>
+
+																	<div class="widget-toolbar">
+																		<a href="#" data-action="collapse">
+																			<i class="ace-icon fa fa-chevron-up"></i>
+																		</a>
+																	</div>
+																</div>
+
+																<div class="widget-body" style="display: block;">
+																	<div class="widget-main no-padding">
+																		<table class="table table-bordered">
+																			<thead>
+																			<tr>
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>学历
+																				</th>
+
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>数量
+																				</th>
+																			</tr>
+																			</thead>
+
+																			<tbody id="education-table">
+
+																			</tbody>
+																		</table>
+																	</div><!-- /.widget-main -->
+																</div><!-- /.widget-body -->
+															</div><!-- /.widget-box -->
+
+														</div>
+													</div>
+													<div id="task-degree-tab" class="tab-pane">
+														<div class="col-sm-5">
+                                                            <div class="widget-box transparent">
+                                                                <div class="widget-header widget-header-flat">
+                                                                    <h4 class="widget-title lighter">
+                                                                        <i class="ace-icon fa fa-star orange"></i>
+                                                                        数据对比
+                                                                    </h4>
+
+                                                                    <!--		<div class="widget-toolbar">
+                                                                                <a href="#" data-action="collapse">
+                                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                                </a>
+                                                                            </div>-->
+                                                                </div>
+
+                                                                <div class="widget-body" style="display: block;">
+                                                                    <div class="widget-main no-padding" style="height: 300px;" id="degree-tab-echarts">
+
+                                                                    </div><!-- /.widget-main -->
+                                                                </div><!-- /.widget-body -->
+                                                            </div><!-- /.widget-box -->
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="widget-title lighter">
+																		<i class="ace-icon fa fa-star orange"></i>
+																		具体数据
+																	</h4>
+
+																	<div class="widget-toolbar">
+																		<a href="#" data-action="collapse">
+																			<i class="ace-icon fa fa-chevron-up"></i>
+																		</a>
+																	</div>
+																</div>
+
+																<div class="widget-body" style="display: block;">
+																	<div class="widget-main no-padding">
+																		<table class="table table-bordered">
+																			<thead>
+																			<tr>
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>学位
+																				</th>
+
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>数量
+																				</th>
+																			</tr>
+																			</thead>
+
+																			<tbody id="degree-table">
+
+																			</tbody>
+																		</table>
+																	</div><!-- /.widget-main -->
+																</div><!-- /.widget-body -->
+															</div><!-- /.widget-box -->
+
+														</div>
+													</div>
+													<div id="task-pro-tab" class="tab-pane">
+														<div class="col-sm-5">
+
+                                                            <div class="widget-box transparent">
+                                                                <div class="widget-header widget-header-flat">
+                                                                    <h4 class="widget-title lighter">
+                                                                        <i class="ace-icon fa fa-star orange"></i>
+                                                                        数据对比
+                                                                    </h4>
+
+                                                                </div>
+
+                                                                <div class="widget-body" style="display: block;">
+                                                                    <div class="widget-main no-padding" style="height: 300px;" id="pro-tab-echarts">
+
+                                                                    </div><!-- /.widget-main -->
+                                                                </div><!-- /.widget-body -->
+                                                            </div><!-- /.widget-box -->
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="widget-title lighter">
+																		<i class="ace-icon fa fa-star orange"></i>
+																		具体数据
+																	</h4>
+
+																	<div class="widget-toolbar">
+																		<a href="#" data-action="collapse">
+																			<i class="ace-icon fa fa-chevron-up"></i>
+																		</a>
+																	</div>
+																</div>
+
+																<div class="widget-body" style="display: block;">
+																	<div class="widget-main no-padding">
+																		<table class="table table-bordered">
+																			<thead>
+																			<tr>
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>专业
+																				</th>
+
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>数量
+																				</th>
+																			</tr>
+																			</thead>
+
+																			<tbody id="major-table">
+
+																			</tbody>
+																		</table>
+																	</div><!-- /.widget-main -->
+																</div><!-- /.widget-body -->
+															</div><!-- /.widget-box -->
+
+														</div>
+													</div>
+													<div id="task-tech-tab" class="tab-pane">
+														<div class="col-sm-5">
+                                                            <div class="widget-box transparent">
+                                                                <div class="widget-header widget-header-flat">
+                                                                    <h4 class="widget-title lighter">
+                                                                        <i class="ace-icon fa fa-star orange"></i>
+                                                                        数据对比
+                                                                    </h4>
+                                                                </div>
+
+                                                                <div class="widget-body" style="display: block;">
+                                                                    <div class="widget-main no-padding" style="height: 300px;" id="tech-tab-echarts">
+
+                                                                    </div><!-- /.widget-main -->
+                                                                </div><!-- /.widget-body -->
+                                                            </div><!-- /.widget-box -->
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="widget-title lighter">
+																		<i class="ace-icon fa fa-star orange"></i>
+																		具体数据
+																	</h4>
+
+																	<div class="widget-toolbar">
+																		<a href="#" data-action="collapse">
+																			<i class="ace-icon fa fa-chevron-up"></i>
+																		</a>
+																	</div>
+																</div>
+
+																<div class="widget-body" style="display: block;">
+																	<div class="widget-main no-padding">
+																		<table class="table table-bordered">
+																			<thead>
+																			<tr>
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>专业技术资格
+																				</th>
+
+																				<th class="gradient">
+																					<i class="ace-icon fa fa-caret-right blue"></i>数量
+																				</th>
+																			</tr>
+																			</thead>
+
+																			<tbody id="technology-table">
+
+																			</tbody>
+																		</table>
+																	</div><!-- /.widget-main -->
+																</div><!-- /.widget-body -->
+															</div><!-- /.widget-box -->
+
+														</div>
+													</div>
+												</div>
+											</div><!-- /.widget-main -->
+										</div><!-- /.widget-body -->
+									</div>
+
+
+								</div>
+
+
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+			<div class="footer">
+				<div class="footer-inner">
+					<!-- #section:basics/footer -->
+					<div class="footer-content">
+						<span class="bigger-120">
+							<span class="blue bolder">中国气象局</span>
+
+						</span>
+
+
+					</div>
+
+				</div>
+			</div>
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<script src="./js/components/jquery/dist/jquery.js"></script>
+
+<script src="./js/components/jquery.1x/dist/jquery.js"></script>
+
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='./js/components/_mod/jquery.mobile.custom/jquery.mobile.custom.js'>"+"<"+"/script>");
+		</script>
+		<script src="./js/components/bootstrap/dist/js/bootstrap.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<!--[if lte IE 8]>
+		  <script src="./js/components/ExplorerCanvas/excanvas.js"></script>
+		<![endif]-->
+		<script src="./js/components/_mod/jquery-ui.custom/jquery-ui.custom.js"></script>
+		<script src="./js/components/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
+		<script src="./js/components/_mod/easypiechart/jquery.easypiechart.js"></script>
+		<script src="./js/components/jquery.sparkline/index.js"></script>
+		<script src="./js/components/Flot/jquery.flot.js"></script>
+		<script src="./js/components/Flot/jquery.flot.pie.js"></script>
+		<script src="./js/components/Flot/jquery.flot.resize.js"></script>
+
+		<!-- ace scripts -->
+		<script src="./js/assets/src/elements.scroller.js"></script>
+		<script src="./js/assets/src/elements.colorpicker.js"></script>
+		<script src="./js/assets/src/elements.fileinput.js"></script>
+		<script src="./js/assets/src/elements.typeahead.js"></script>
+		<script src="./js/assets/src/elements.wysiwyg.js"></script>
+		<script src="./js/assets/src/elements.spinner.js"></script>
+		<script src="./js/assets/src/elements.treeview.js"></script>
+		<script src="./js/assets/src/elements.wizard.js"></script>
+		<script src="./js/assets/src/elements.aside.js"></script>
+		<script src="./js/assets/src/ace.js"></script>
+		<script src="./js/assets/src/ace.basics.js"></script>
+		<script src="./js/assets/src/ace.scrolltop.js"></script>
+		<script src="./js/assets/src/ace.ajax-content.js"></script>
+		<script src="./js/assets/src/ace.touch-drag.js"></script>
+		<script src="./js/assets/src/ace.sidebar.js"></script>
+		<script src="./js/assets/src/ace.sidebar-scroll-1.js"></script>
+		<script src="./js/assets/src/ace.submenu-hover.js"></script>
+		<script src="./js/assets/src/ace.widget-box.js"></script>
+		<script src="./js/assets/src/ace.settings.js"></script>
+		<script src="./js/assets/src/ace.settings-rtl.js"></script>
+		<script src="./js/assets/src/ace.settings-skin.js"></script>
+		<script src="./js/assets/src/ace.widget-on-reload.js"></script>
+		<script src="./js/assets/src/ace.searchbox-autocomplete.js"></script>
+
+		<script type="text/javascript">
+            function showSexEchart(statisticData){
+                $.get("/statistic/load-person-sex.action",statisticData,function (res) {
+                    var data = res.data;
+                    var myChart = echarts.init(document.getElementById('sex-tab-echarts'));
+                    var option = {
+                        title : {
+                            text: '性别占比',
+                            x:'left'
+                        },
+                        noDataLoadingOption: {
+                            text: '性别占比暂无数据',
+                            effect: 'bubble',
+                            effectOption: {
+                                effect: {
+                                    n: 0
+                                }
+                            }
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient : 'vertical',
+                            x : 'right',
+                            y:'bottom',
+                            data:['男','女']
+                        },
+                        series : [
+                            {
+                                name:'性别占比',
+                                type:'pie',
+                                radius : '55%',
+                                center: ['50%', '60%'],
+                                data: data/*[
+                                   {value:32496, name:'男'},
+                                   {value:20657, name:'女'}
+                               ]*/
+                            }
+                        ]
+                    };
+                    // 为echarts对象加载数据
+                    myChart.setOption(option);
+                    var apphtml =""
+                    $.each(data,function(i,item){
+                        var color;
+                        if(i%2==0){
+                            color="green";
+                        }else{
+                            color="blue";
+                        }
+                        apphtml += "<tr><td>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td>"+ "</tr>";
+                    });
+
+                    $("#sex-table").html(apphtml);
+                });
+            }
+            function showNationEchart(statisticData){
+                $.get("/statistic/load-person-nation.action",statisticData,function (res) {
+                    var data = res.data;
+                    var myChart = echarts.init(document.getElementById('nation-tab-echarts'));
+                    var option = {
+                        title : {
+                            text: '民族占比',
+                            x:'left'
+                        },
+                        noDataLoadingOption: {
+                            text: '民族占比暂无数据',
+                            effect: 'bubble',
+                            effectOption: {
+                                effect: {
+                                    n: 0
+                                }
+                            }
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient : 'vertical',
+                            x : 'right',
+                            y:'bottom',
+                            data:['汉族','少数民族']
+                        },
+                        series :[
+                            {
+                                name:'民族',
+                                type:'pie',
+                                radius : ['50%', '70%'],
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            show : false
+                                        },
+                                        labelLine : {
+                                            show : false
+                                        }
+                                    },
+                                    emphasis : {
+                                        label : {
+                                            show : true,
+                                            position : 'center',
+                                            textStyle : {
+                                                fontSize : '30',
+                                                fontWeight : 'bold'
+                                            }
+                                        }
+                                    }
+                                },
+                                data:data/*[
+                                   {value:50000, name:'汉族'},
+                                   {value:3153, name:'少数民族'}
+                               ]*/
+                            }
+                        ]
+                    };
+                    // 为echarts对象加载数据
+                    myChart.setOption(option);
+                    var apphtml =""
+                    $.each(data,function(i,item){
+                        var color;
+                        if(i%2==0){
+                            color="green";
+                        }else{
+                            color="blue";
+                        }
+                        apphtml += "<tr><td>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td>"+ "</tr>";
+                    });
+
+                    $("#nation-table").html(apphtml);
+                });
+            }
+            function showAgeEchart(statisticData){
+                $.get("/statistic/load-person-age.action",statisticData,function (res) {
+                    var data = res.data;
+                    var myChart = echarts.init(document.getElementById('age-tab-echarts'));
+                    var option = {
+                        title : {
+                            text: '年龄结构',
+                            x:'left'
+                        },
+                        noDataLoadingOption: {
+                            text: '年龄结构暂无数据',
+                            effect: 'bubble',
+                            effectOption: {
+                                effect: {
+                                    n: 0
+                                }
+                            }
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            data:['35以下', '36-40','41-45','46-50','51-55','56及以上'],
+                            orient : 'vertical',
+                            x : 'right',
+                            y : 'bottom'
+                        },
+
+                        series : [
+                            {
+                                name:'人数占比',
+                                type:'pie',
+                                radius : '55%',
+                                center: ['50%', '60%'],
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            show : false
+                                        },
+                                        labelLine : {
+                                            show : false
+                                        }
+                                    }
+                                },
+                                data: data/*[
+                                   {value:19167, name:'35岁以下'},
+                                   {value:6612, name:'36－40'},
+                                   {value:6765, name:'41－45'},
+                                   {value:7418, name:'46－50'},
+                                   {value:9565, name:'51－55'},
+                                   {value:3626, name:'56及以上'},
+                               ]*/
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                    var apphtml =""
+                    $.each(data,function(i,item){
+                        var color;
+                        if(i%2==0){
+                            color="green";
+                        }else{
+                            color="blue";
+                        }
+                        apphtml += "<tr><td>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td>"+ "</tr>";
+                    });
+
+                    $("#age-table").html(apphtml);
+                });
+            }
+            function showEduEchart(statisticData){
+                $.get("/statistic/load-person-edu.action",statisticData,function (res) {
+                    var data = res.data;
+                    var myChart = echarts.init(document.getElementById('edu-tab-echarts'));
+                    var option = {
+                        title : {
+                            text: '学历分布',
+                            x:'left'
+                        },
+                        noDataLoadingOption: {
+                            text: '学历分布暂无数据',
+                            effect: 'bubble',
+                            effectOption: {
+                                effect: {
+                                    n: 0
+                                }
+                            }
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient : 'vertical',
+                            x : 'right',
+                            y : 'bottom',
+                            data:['研究生','本科','专科','中专','高中及以下']
+                        },
+                        series : [
+                            {
+                                name:'人数',
+                                type:'pie',
+                                radius : [30, 110],
+                                center : ['50%', '50%'],
+                                roseType : 'area',
+                                x: '50%',
+                                max: 40,
+                                sort : 'ascending',
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            show : false
+                                        },
+                                        labelLine : {
+                                            show : false
+                                        }
+                                    }
+                                },
+                                data: data/*[
+                                   {value:7424, name:'研究生'},
+                                   {value:33811, name:'本科'},
+                                   {value:7930, name:'专科'},
+                                   {value:2487, name:'中专'},
+                                   {value:1501, name:'高中及以下'}
+                               ]*/
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                    var apphtml =""
+                    $.each(data,function(i,item){
+                        var color;
+                        if(i%2==0){
+                            color="green";
+                        }else{
+                            color="blue";
+                        }
+                        apphtml += "<tr><td>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td>"+ "</tr>";
+                    });
+
+                    $("#education-table").html(apphtml);
+                });
+            }
+            function showDegreeEchart(statisticData) {
+                $.get("/statistic/load-person-degree.action",statisticData,function (res) {
+                    var data = res.data;
+                    var myChart = echarts.init(document.getElementById('degree-tab-echarts'));
+                    var option = {
+                        title : {
+                            text: '学位占比',
+                            x:'left'
+                        },
+                        noDataLoadingOption: {
+                            text: '学位占比暂无数据',
+                            effect: 'bubble',
+                            effectOption: {
+                                effect: {
+                                    n: 0
+                                }
+                            }
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient : 'vertical',
+                            x : 'right',
+                            y:'bottom',
+                            data:['博士','硕士','学士','无学位']
+                        },
+                        series : [
+                            {
+                                name:'性别占比',
+                                type:'pie',
+                                radius : '55%',
+                                center: ['50%', '60%'],
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            show : false
+                                        },
+                                        labelLine : {
+                                            show : false
+                                        }
+                                    }
+                                },
+                                data: data
+                            }
+                        ]
+                    };
+                    // 为echarts对象加载数据
+                    myChart.setOption(option);
+                    var apphtml =""
+                    $.each(data,function(i,item){
+                        var color;
+                        if(i%2==0){
+                            color="green";
+                        }else{
+                            color="blue";
+                        }
+                        apphtml += "<tr><td>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td>"+ "</tr>";
+                    });
+
+                    $("#degree-table").html(apphtml);
+                });
+
+            }
+            function showProEchart(statisticData) {
+                $.get("/statistic/load-person-major.action",statisticData,function (res) {
+                    var data = res.data;
+                    var myChart = echarts.init(document.getElementById('pro-tab-echarts'));
+                    var option = {
+                        title : {
+                            text: '专业占比',
+                            x:'left'
+                        },
+                        noDataLoadingOption: {
+                            text: '专业占比暂无数据',
+                            effect: 'bubble',
+                            effectOption: {
+                                effect: {
+                                    n: 0
+                                }
+                            }
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient : 'vertical',
+                            x : 'right',
+                            y:'bottom',
+                            data : ['大气科学','地球科学及其他专业','信息技术类']
+                        },
+                        /*    xAxis : [
+                                {
+                                    type : 'category',
+                                    data : ['大气科学','地球科学及其他专业','信息技术类']
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value'
+                                }
+                            ],*/
+                        series : [
+                            {
+                                name:'专业占比',
+                                type:'pie',
+                                radius : '55%',
+                                center: ['50%', '60%'],
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            show : false
+                                        },
+                                        labelLine : {
+                                            show : false
+                                        }
+                                    }
+                                },
+                                data:data
+                            }
+                        ]
+                    };
+                    // 为echarts对象加载数据
+                    myChart.setOption(option);
+                    var apphtml =""
+                    $.each(data,function(i,item){
+                        var color;
+                        if(i%2==0){
+                            color="green";
+                        }else{
+                            color="blue";
+                        }
+                        apphtml += "<tr><td>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td>"+ "</tr>";
+                    });
+
+                    $("#major-table").html(apphtml);
+                });
+
+            }
+            function showTechEchart(statisticData){
+                $.get("/statistic/load-person-tech.action",statisticData,function (res) {
+                    var data = res.data;
+                    var myChart =  echarts.init(document.getElementById('tech-tab-echarts'));
+
+                    var option = {
+                        title : {
+                            text: '专业技术资格分布',
+                            x:'left'
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient : 'vertical',
+                            x : 'right',
+                            y:'bottom',
+                            data : ['正研','副研','中级','初级','见习','无资格']
+                        },
+
+                        series : [
+                            {
+                                name:'专业技术资格占比',
+                                type:'pie',
+                                radius : '55%',
+                                center: ['50%', '60%'],
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            show : false
+                                        },
+                                        labelLine : {
+                                            show : false
+                                        }
+                                    }
+                                },
+                                data:data
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                    var apphtml =""
+                    $.each(data,function(i,item){
+                        var color;
+                        if(i%2==0){
+                            color="green";
+                        }else{
+                            color="blue";
+                        }
+                        apphtml += "<tr><td>"+item.name+"</td><td><b class='"+color+"'>"+item.value+"</b></td>"+ "</tr>";
+                    });
+
+                    $("#technology-table").html(apphtml);
+                });
+
+            }
+			jQuery(function($) {
+			    var statisticData={};
+                var personType = $("#person-type-select").val();
+                var associate = $("#associateValue").val();
+
+                statisticData={"personType":personType,"orgCode":associate};
+                getLocation();
+
+                function getLocation(){
+					var options = {
+						enableHighAccuracy: true,
+						timeout: 5000,
+						maximumAge: 0
+					};
+
+                    if (navigator.geolocation){
+                        navigator.geolocation.getCurrentPosition(showPosition,showError,options);
+                    }else{
+                        alert("浏览器不支持地理定位。");
+                    }
+                }
+                function showPosition(position){
+                    var latlon = position.coords.latitude+','+position.coords.longitude;
+                    //baidu
+                    var url = "http://api.map.baidu.com/geocoder/v2/?ak=C93b5178d7a8ebdb830b9b557abce78b&callback=renderReverse&location="+latlon+"&output=json&pois=0";
+                    $.ajax({
+                        type: "GET",
+                        dataType: "jsonp",
+                        url: url,
+                        beforeSend: function(){
+                            $("#baidu_geo").html('正在定位...');
+                        },
+                        success: function (json) {
+                            if(json.status==0){
+                                $("#baidu_geo").html(json.result.formatted_address);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            $("#baidu_geo").html(latlon+"地址位置获取失败");
+                        }
+                    });
+                }
+                function showError(error){
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            alert("定位失败,用户拒绝请求地理定位");
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            alert("定位失败,位置信息是不可用");
+                            break;
+                        case error.TIMEOUT:
+                            alert("定位失败,请求获取用户位置超时");
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            alert("定位失败,定位系统失效");
+                            break;
+                    }
+                }
+			    $("#back-index-btn").click(function () {
+                    location.href="./index.html";
+                });
+				showSexEchart();
+                var $tabContentBox=$("#tab-content-box");
+                $tabContentBox.find(".tab-pane").hide();
+                $tabContentBox.find(".tab-pane").eq(0).show();
+                $("#recent-tab").off().on("click","li",function(){
+                    var index=$(this).index();
+                    var personType = $("#person-type-select").val();
+                    var associate = $("#associateValue").val();
+                    statisticData={"personType":personType,"orgCode":associate};
+                    $tabContentBox.find(".tab-pane").eq(index).show().siblings().hide();
+                    EchartEventIndex(index,statisticData);
+                });
+                function EchartEventIndex(index,statisticData) {
+                    switch (index){
+                        case 0:showSexEchart(statisticData);
+                            break;
+                        case 1:showNationEchart(statisticData);
+                            break;
+                        case 2:showAgeEchart(statisticData);
+                            break;
+                        case 3:showEduEchart(statisticData);
+                            break;
+                        case 4:showDegreeEchart(statisticData);
+                            break;
+                        case 5:showProEchart(statisticData);
+                            break;
+                        case 6:showTechEchart(statisticData);
+                            break;
+
+                    }
+                }
+			})
+		</script>
+       <!-- <script src="./js/associate/js/LAreaData1.js"></script>
+        <script src="./js/associate/js/LAreaData2.js"></script>-->
+        <script src="./js/associate/js/LArea.js"></script>
+        <script type="text/javascript">
+            var area1 = new LArea();
+            area1.init({
+                'trigger': '#associateDemo', //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
+                'valueTo': '#associateValue', //选择完毕后id属性输出到该位置
+                'keys': {
+                    id: 'id',
+                    name: 'name'
+                }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
+                'type': 1, //数据源类型
+                'data':'/statistic/tree-org-dept.action'//数据源
+            });
+
+        </script>
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+        <link rel="stylesheet" href="./css/assets/ace.onpage-help.css" />
+        <link rel="stylesheet" href="./js/docs/assets/js/themes/sunburst.css" />
+
+        <script type="text/javascript"> ace.vars['base'] = '..'; </script>
+        <script src="./js/assets/src/elements.onpage-help.js"></script>
+        <script src="./js/assets/src/ace.onpage-help.js"></script>
+        <script src="./js/docs/assets/js/rainbow.js"></script>
+        <script src="./js/docs/assets/js/language/generic.js"></script>
+        <script src="./js/docs/assets/js/language/html.js"></script>
+        <script src="./js/docs/assets/js/language/css.js"></script>
+        <script src="./js/docs/assets/js/language/javascript.js"></script>
+	</body>
+</html>

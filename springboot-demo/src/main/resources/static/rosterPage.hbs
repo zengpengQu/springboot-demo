@@ -1,0 +1,38 @@
+<input type="text" value="{{orgData}}" id="backOrgCode" style="display: none"/>
+<link rel="stylesheet" href="css/style.css">
+<div class="input-group">
+    <input type="text" class="form-control search-query" placeholder="人员查询..." id="searchPersonName"/>
+    <span class="input-group-btn">
+            <button type="button" class="btn btn-info btn-sm" id="searchPerson">
+                <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                查询
+            </button>
+        </span>
+</div>
+<div id="listbox">
+
+
+</div>
+
+<script type="text/javascript" src="js/jquery.charfirst.pinyin.js"></script>
+<script type="text/javascript" src="js/sort.js"></script>
+<script>
+    $(document).ready(function () {
+        HBUtil.loadContent("./rosterListBox.hbs", {'statistic-index':null}, "#listbox");
+        if($("#back-index-btn")){
+            $("#back-index-btn").remove();
+        }
+            var headHtml =
+                    "    <button class=\"btn btn-success btn-sm\" style=\"float: right;\" id=\"back-index-btn\">\n" +
+                    "        <i class=\"ace-icon fa fa-reply icon-only\"></i>\n" +
+                    "    </button>";
+            $(".content-block").append(headHtml);
+        $("#back-index-btn").unbind().on('click', function () {
+                    $(window).scroll().unbind();
+                    var orgCode = $('#associateValue').val();
+                    var orgName = $('#associateDemo').val();
+                    var statisticData = {"orgCode": orgCode, "orgName": orgName};
+                    HBUtil.loadContent("./indexPage.hbs", {"statisticData": statisticData}, ".main-content");
+                });
+    })
+</script>
